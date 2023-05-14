@@ -4,7 +4,7 @@ import java.util.List;
 
 public class XmlFileIO implements IFileIO {
     @Override
-    public List<String> readFile() {
+    public List<String[]> readFile() {
         return null;
     }
 
