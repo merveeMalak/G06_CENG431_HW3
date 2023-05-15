@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a0ef9b6-7267-49e1-b323-cae2b29d3055" name="Changes" comment="Classes are created, BibFileIO updated">
-      <change afterPath="$PROJECT_DIR$/opencsv-5.7.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fileManagement/CsvFileManagement.java" afterDir="false" />
+    <list default="true" id="d6894d40-445c-4750-9804-27ad3a246d06" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/researchers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/G06_CENG431_HW3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/G06_CENG431_HW3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fileIO/BibFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/BibFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/CsvFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/CsvFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/IFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/IFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/IWriteFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/IWriteFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/JsonFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/JsonFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileManagement/BibFileManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileManagement/BibFileManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Paper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Paper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fileIo" />
+        <entry key="$PROJECT_DIR$" value="BibFile" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,7 +47,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
+  keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
@@ -66,7 +62,12 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+      &quot;last_opened_file_path&quot;: &quot;F:/BELGELER_MERVE/CENG/CENG_8.DONEM/CENG431/HOMEWORKS/G06_CENG431_HW3/jbibtex-1.0.20.jar&quot;,
+      &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+      &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+      &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+      &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -106,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683927237809</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Bib files read and created papers">
+      <created>1684093825236</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1684093825236</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,7 +133,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Classes are created, BibFileIO updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Classes are created, BibFileIO updated" />
+    <MESSAGE value="Bib files read and created papers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bib files read and created papers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
