@@ -5,7 +5,11 @@ import fileIO.IReadFileIO;
 import fileIO.XmlFileIO;
 import fileManagement.BibFileManagement;
 import fileManagement.CsvFileManagement;
+
+
+import fileManagement.XmlFileManagement;
 import model.Paper;
+import model.Researcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,18 +22,12 @@ public class Main {
         List<Paper> papers = bibFileManagement.getPapers();
         CsvFileManagement csvFileManagement = new CsvFileManagement(papers);
         csvFileManagement.writePapers();
-        IFileIO<Map<String, String>> xmlFileIO = new XmlFileIO();
-        Map<String, String> lines = new HashMap<>();
-        lines.put("follower_researcher_names", "");
-        lines.put("following_researcher_names", "ali;fatma");
-        lines.put("password", "123");
-        lines.put("name", "merve");
-        xmlFileIO.writeFileIO(lines);
-        Map<String, String> lines1 = new HashMap<>();
-        lines1.put("follower_researcher_names", "veli;ayşe");
-        lines1.put("following_researcher_names", "ali;fatma");
-        lines1.put("password", "1234");
-        lines1.put("name", "merve1");
-        xmlFileIO.writeFileIO(lines1);
+        XmlFileManagement xmlFileManagement = new XmlFileManagement();
+        List<Researcher> researchers = new ArrayList<>();
+        Researcher researcher2 = new Researcher("Dilek Öztürk", "dilek123",new ArrayList<>(), new ArrayList<>());
+        Researcher researcher3 = new Researcher("Serhat Caner", "serhat123",new ArrayList<>(), new ArrayList<>());
+        xmlFileManagement.setFollowResearcher(researcher2, researcher3);
+        IFileIO xmlFileIO = new XmlFileIO();
+        xmlFileIO.readFile();
     }
 }

@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6894d40-445c-4750-9804-27ad3a246d06" name="Changes" comment="">
+    <list default="true" id="5a0ef9b6-7267-49e1-b323-cae2b29d3055" name="Changes" comment="XML file writes">
+      <change afterPath="$PROJECT_DIR$/src/fileManagement/XmlFileManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/G06_CENG431_HW3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/G06_CENG431_HW3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/papers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/papers.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/researchers.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileIO/CsvFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/CsvFileIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileIO/IFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/IFileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/JsonFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/JsonFileIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Researcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,30 +48,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
-  keyToString&quot;: {
+  &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hazim/IdeaProjects/G06_CENG431_HW3/opencsv-5.7.1.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/BELGELER_MERVE/CENG/CENG_8.DONEM/CENG431/HOMEWORKS/G06_CENG431_HW3/opencsv-5.7.1.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-      &quot;last_opened_file_path&quot;: &quot;F:/BELGELER_MERVE/CENG/CENG_8.DONEM/CENG431/HOMEWORKS/G06_CENG431_HW3/jbibtex-1.0.20.jar&quot;,
-      &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-      &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-      &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-      &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="fileManagement" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\hazim\IdeaProjects\G06_CENG431_HW3" />
     </key>
