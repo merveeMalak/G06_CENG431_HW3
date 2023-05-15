@@ -1,6 +1,7 @@
 package fileIO;
 
 import java.util.List;
+import java.util.Map;
 
 public class JsonFileIO implements IFileIO{
     @Override
@@ -9,7 +10,5 @@ public class JsonFileIO implements IFileIO{
     }
 
     @Override
-    public void writeFileIO(List<String> lines) {
-
-    }
+    public void writeFile(Map<String, String> line) {}
 }
