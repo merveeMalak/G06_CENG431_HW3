@@ -1,4 +1,5 @@
 package fileIO;
 
-public interface IFileIO extends IReadFileIO , IWriteFileIO{
+public interface IFileIO<T> extends IReadFileIO , IWriteFileIO<T>{
+
 }

@@ -2,10 +2,11 @@ package model;
 
 import java.util.List;
 
-public class Article extends Paper{
+public class Article extends Paper {
     private int volume;
     private String number;
     private String journal;
+
     public Article(List<String> authors, String title, int year, String doi, int volume, String number, String journal) {
         super(authors, title, year, doi);
         this.volume = volume;
@@ -13,8 +14,8 @@ public class Article extends Paper{
         this.journal = journal;
     }
 
-    public int getVolume() {
-        return this.volume;
+    public String getVolume() {
+        return String.format("%s", this.volume);
     }
 
     public String getNumber() {

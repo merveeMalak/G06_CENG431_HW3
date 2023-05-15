@@ -2,7 +2,7 @@ package fileIO;
 
 import java.util.List;
 
-public interface IWriteFileIO {
+public interface IWriteFileIO<T> {
 
-    public void writeFileIO(List<String> lines);
+    public void writeFileIO(T lines);
 }
