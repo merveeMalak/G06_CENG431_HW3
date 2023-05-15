@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <researchers>
+                
+    
+    
+    <researcher>
+                                
         
+        
+        <following_researcher_names>
+                                                
+            
+            
+            <following_researcher_name>ali</following_researcher_name>
+                                                
+            
+            
+            <following_researcher_name>fatma</following_researcher_name>
+                                            
+        
+        
+        </following_researcher_names>
+                                
+        
+        
+        <password>123</password>
+                                
+        
+        
+        <name>merve</name>
+                            
+    
+    
+    </researcher>
+            
+    
+    
+    <researcher>
+                        
+        
+        <follower_researcher_names>
+                                    
+            
+            <follower_researcher_name>veli</follower_researcher_name>
+                                    
+            
+            <follower_researcher_name>ayşe</follower_researcher_name>
+                                
+        
+        </follower_researcher_names>
+                        
+        
+        <following_researcher_names>
+                                    
+            
+            <following_researcher_name>ali</following_researcher_name>
+                                    
+            
+            <following_researcher_name>fatma</following_researcher_name>
+                                
+        
+        </following_researcher_names>
+                        
+        
+        <password>1234</password>
+                        
+        
+        <name>merve1</name>
+                    
+    
+    </researcher>
+        
+    
     <researcher>
                 
         <following_researcher_names>

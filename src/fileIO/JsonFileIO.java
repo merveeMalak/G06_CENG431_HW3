@@ -10,5 +10,5 @@ public class JsonFileIO implements IFileIO<List<String>>{
     }
 
     @Override
-    public void writeFile(Map<String, String> line) {}
+    public void writeFileIO(List<String> line) {}
 }
