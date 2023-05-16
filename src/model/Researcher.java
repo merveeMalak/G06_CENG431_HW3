@@ -41,7 +41,14 @@ public class Researcher {
         followingResearchers.add(followingResearcher);
     }
 
+    public void removeFollowingResearcher(Researcher followingResearcher){
+        followingResearchers.remove(followingResearcher);
+    }
     public void addFollowerResearcher(Researcher followerResearcher) {
         followerResearchers.add(followerResearcher);
     }
+    public void removeFollowerResearcher(Researcher followerResearcher){
+        followerResearchers.remove(followerResearcher);
+    }
+
 }

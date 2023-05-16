@@ -29,7 +29,6 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
             String[] researcher = new String[4];
             researcher[0]  = ((Element) researcherNodes.item(i)).getElementsByTagName("name").item(0).getTextContent();
             researcher[1]  = ((Element) researcherNodes.item(i)).getElementsByTagName("password").item(0).getTextContent();
-            // Get following_researcher_names
             Element followingResearchersElement = (Element)((Element) researcherNodes.item(i)).getElementsByTagName("following_researcher_names").item(0);
             String followingString = "";
             if (followingResearchersElement != null){
@@ -53,14 +52,10 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
                     followerString +=  followerResearcherElement.getTextContent() +  (j == followerResearcherNodes.getLength() -1 ? "" : ";" );
                 }
             }
-
             researcher[3] = followerString;
             researcherList.add(researcher);
         }
-        System.out.println("ilk dosya okunduğu zaman");
-        for (String[] s : researcherList){
-            System.out.println(s[0] + " " + s[1] + " " + s[2] + " " + s[3]);
-        }
+
         return researcherList;
     }
 
@@ -76,7 +71,6 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
     private Document getDocument(){
         Document doc = null;
         if (isFileExist()){
-            //okuyup researchers listesini oluştur
             System.out.println("dosya var");
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = null;
@@ -151,38 +145,26 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
         }
     }
 
-    public void updateFile(String name, String changedValue, String newContent, boolean isFollow){
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder = null;
-        try {
-            docBuilder = docFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        }
-        Document doc = null;
-        try {
-            doc = docBuilder.parse(FILE_NAME);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        if (isFollow){
+    public void updateFile(String name, String changedValue, String newContent, boolean isFollow) {
+        Document doc = getDocument();
+        if (isFollow) {
             try {
                 Node followingsearcherNode = findResearcherByName(doc, name);
                 Node followerSearchNode = findResearcherByName(doc, newContent);
-                if (followingsearcherNode != null && followerSearchNode != null ) {
+                if (followingsearcherNode != null && followerSearchNode != null) {
                     Element researcherElement = (Element) followingsearcherNode;
                     Element followingResearchersElement = (Element) researcherElement.getElementsByTagName(changedValue).item(0);
-                    if ( followingResearchersElement == null){
+                    if (followingResearchersElement == null) {
                         Element followElement = doc.createElement(changedValue);
-                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
+                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length() - 1));
                         followElement.appendChild(newElement);
-                        researcherElement.appendChild(followElement);
-                    }else{
-                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
                         newElement.setTextContent(newContent);
-                        researcherElement.appendChild(newElement);
+                        researcherElement.appendChild(followElement);
+                    } else {
+                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length() - 1));
+                        newElement.setTextContent(newContent);
+                        followingResearchersElement.appendChild(newElement);
                     }
-
                     transformFile(doc);
                 } else {
                     System.out.println("Array element '" + changedValue + "' not found in the XML file.");
@@ -190,12 +172,28 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
+            Node followingsearcherNode = findResearcherByName(doc, name);
+            Node followerSearchNode = findResearcherByName(doc, newContent);
+            if (followingsearcherNode != null && followerSearchNode !=null){
+                Element arrayElement = (Element) ((Element) followingsearcherNode).getElementsByTagName(changedValue).item(0);
+                if (arrayElement != null) {
+                    NodeList elementNodes = arrayElement.getElementsByTagName(changedValue.substring(0, changedValue.length()-1));
+                    for (int i = 0; i < elementNodes.getLength(); i++) {
+                        Element element = (Element) elementNodes.item(i);
+                        if (element.getTextContent().equals(newContent)) {
+                            arrayElement.removeChild(element);
+                            System.out.println("xx " + ((arrayElement.getChildNodes().item(0))).getTextContent());
+                            break;
+                        }
+                    }
+                    transformFile(doc);
+                }
+            }
+
 
         }
-
     }
-
     private Node findResearcherByName(Document doc, String researcherName) {
         NodeList researcherNodes = doc.getElementsByTagName("researcher");
         for (int i = 0; i < researcherNodes.getLength(); i++) {
@@ -207,6 +205,4 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
         }
         return null;
     }
-
-
 }

@@ -50,7 +50,7 @@ public class XmlFileManagement {
     }
 
 
-    public  void createFromFileToResearchers(List<String[]> researcherList){
+    private void createFromFileToResearchers(List<String[]> researcherList){
         for (String[] researcherArray : researcherList){
             researchers.add(new Researcher(researcherArray[0], researcherArray[1]));
         }
@@ -69,9 +69,6 @@ public class XmlFileManagement {
                 }
             }
         }
-        for (Researcher researcher: researchers){
-            System.out.println(researcher.getName() +" " + researcher.getFollowingResearchers().size() +" " + researcher.getFollowerResearchers().size());
-        }
     }
 
     public void setFollowResearcher(Researcher researcher, Researcher followingResearcher){
@@ -80,15 +77,17 @@ public class XmlFileManagement {
             xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), true);
             researcher.addFollowingResearcher(followingResearcher);
             followingResearcher.addFollowerResearcher(researcher);
-            System.out.println("update edildikten sonra");
-            System.out.println(researcher.getName() + researcher.getFollowingResearchers().size());
-            System.out.println(researcher.getName() + followingResearcher.getFollowerResearchers().size());
         }
     }
 
     public void setUnfollowResearcher(Researcher researcher, Researcher followingResearcher){
-        xmlFileIO.updateFile(researcher.getName(), "following_researcher_names", followingResearcher.getName(), false);
-        xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), false);
+        if (researcher.getFollowingResearchers().contains(followingResearcher) && followingResearcher.getFollowerResearchers().contains(researcher)){
+            xmlFileIO.updateFile(researcher.getName(), "following_researcher_names", followingResearcher.getName(), false);
+            xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), false);
+            researcher.removeFollowingResearcher(followingResearcher);
+            followingResearcher.removeFollowerResearcher(researcher);
+        }
+
     }
 
     public List<Researcher> getResearchers() {

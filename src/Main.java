@@ -25,6 +25,10 @@ public class Main {
         XmlFileManagement xmlFileManagement = new XmlFileManagement();
         List<Researcher> researchers = xmlFileManagement.getResearchers();
         xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
-
+        xmlFileManagement.setUnfollowResearcher(researchers.get(1),researchers.get(4));
+        xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
+        xmlFileManagement.setFollowResearcher(researchers.get(2),researchers.get(3));
+        xmlFileManagement.setFollowResearcher(researchers.get(0),researchers.get(1));
+        xmlFileManagement.setUnfollowResearcher(researchers.get(0),researchers.get(4));
     }
 }

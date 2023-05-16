@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/researchers.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileManagement/BibFileManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileManagement/BibFileManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fileManagement/XmlFileManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileManagement/XmlFileManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Researcher.java" afterDir="false" />
     </list>
@@ -108,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684183876158</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="XMLFileIO and XmlFileManagement operations updated">
+      <created>1684274122607</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1684274122607</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
