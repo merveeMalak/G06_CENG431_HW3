@@ -2,6 +2,7 @@ package model;
 
 import fileManagement.XmlFileManagement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Researcher {
@@ -10,16 +11,16 @@ public class Researcher {
     private List<Researcher> followingResearchers;
     private List<Researcher> followerResearchers;
 
-    //private XmlFileManagement xmlFileManagement;
 
     public Researcher(String name, String password, List<Researcher> followingResearchers, List<Researcher> followerResearchers) {
         this.name = name;
         this.password = password;
         this.followingResearchers = followingResearchers;
         this.followerResearchers = followerResearchers;
-        //xmlFileManagement = new XmlFileManagement();
     }
-
+    public Researcher(String name, String password) {
+        this(name, password,new ArrayList<>(),new ArrayList<>() );
+    }
     public String getName() {
         return this.name;
     }
@@ -36,12 +37,11 @@ public class Researcher {
         return this.followerResearchers;
     }
 
-    /*
-    public void followResearcher(Researcher followingResearcher){
+    public void addFollowingResearcher(Researcher followingResearcher) {
         followingResearchers.add(followingResearcher);
-        followingResearcher.getFollowerResearchers().add(this);
-        xmlFileManagement.setFollowResearcher(getName(),followingResearcher.getName());
     }
 
-     */
+    public void addFollowerResearcher(Researcher followerResearcher) {
+        followerResearchers.add(followerResearcher);
+    }
 }

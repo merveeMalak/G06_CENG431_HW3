@@ -5,14 +5,13 @@ import fileIO.XmlFileIO;
 import model.Researcher;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class XmlFileManagement {
     private XmlFileIO xmlFileIO;
     private List<Researcher> researchers;
+
     public XmlFileManagement() {
         this.xmlFileIO = new XmlFileIO();
         this.researchers = new ArrayList<>();
@@ -21,29 +20,57 @@ public class XmlFileManagement {
 
     public void initializeResearcher(){
         if (xmlFileIO.isFileExist()){
-            System.out.println("xml file management");
+            createFromFileToResearchers(xmlFileIO.readFile());
         }else{
             createResearchersFirst();
         }
 
     }
     public void createResearchersFirst() {
-        Researcher researcher1 = new Researcher("Tuğkan Tuğlular", "tuğkan123",new ArrayList<>(), new ArrayList<>());
-        Researcher researcher2 = new Researcher("Dilek Öztürk", "dilek123",new ArrayList<>(), new ArrayList<>());
-        Researcher researcher3 = new Researcher("Serhat Caner", "serhat123",new ArrayList<>(), new ArrayList<>());
-        Researcher researcher4 = new Researcher("Nesli Erdoğmuş", "nesli123",new ArrayList<>(), new ArrayList<>());
-        Researcher researcher5 = new Researcher("Yalın Baştanlar", "yalın123",new ArrayList<>(), new ArrayList<>());
+        Researcher researcher1 = new Researcher("Tuğkan Tuğlular", "tuğkan123");
+        Researcher researcher2 = new Researcher("Dilek Öztürk", "dilek123");
+        Researcher researcher3 = new Researcher("Serhat Caner", "serhat123");
+        Researcher researcher4 = new Researcher("Nesli Erdoğmuş", "nesli123");
+        Researcher researcher5 = new Researcher("Yalın Baştanlar", "yalın123");
         researchers.add(researcher1);
         researchers.add(researcher2);
         researchers.add(researcher3);
         researchers.add(researcher4);
         researchers.add(researcher5);
+
         for (Researcher researcher : researchers){
             Map<String, String> researcherMap = new HashMap<>(){{
                 put("name",researcher.getName());
                 put("password", researcher.getPassword());
+                put("following_researcher_names", researcher.getFollowingResearchers().stream().map(Researcher::getName).collect(Collectors.joining(";")));
+                put("follower_researcher_names", researcher.getFollowerResearchers().stream().map(Researcher::getName).collect(Collectors.joining(";")));
             }};
             xmlFileIO.writeFileIO(researcherMap);
+        }
+    }
+
+
+    public  void createFromFileToResearchers(List<String[]> researcherList){
+        for (String[] researcherArray : researcherList){
+            researchers.add(new Researcher(researcherArray[0], researcherArray[1]));
+        }
+        for (String[] researcherArray : researcherList){
+            String[] followingResearchers = researcherArray[2].split(";");
+            if (followingResearchers.length != 0){
+                Researcher researcher = findResearcherByName(researcherArray[0]);
+                if (researcher != null){
+                    for (String researcherName : followingResearchers){
+                        Researcher followingResearcher = findResearcherByName(researcherName);
+                        if (followingResearcher !=null){
+                            researcher.addFollowingResearcher(followingResearcher);
+                            followingResearcher.addFollowerResearcher(researcher);
+                        }
+                    }
+                }
+            }
+        }
+        for (Researcher researcher: researchers){
+            System.out.println(researcher.getName() +" " + researcher.getFollowingResearchers().size() +" " + researcher.getFollowerResearchers().size());
         }
     }
 
@@ -51,8 +78,12 @@ public class XmlFileManagement {
         if (!researcher.getFollowingResearchers().contains(followingResearcher) && !followingResearcher.getFollowerResearchers().contains(researcher)){
             xmlFileIO.updateFile(researcher.getName(), "following_researcher_names", followingResearcher.getName(), true);
             xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), true);
+            researcher.addFollowingResearcher(followingResearcher);
+            followingResearcher.addFollowerResearcher(researcher);
+            System.out.println("update edildikten sonra");
+            System.out.println(researcher.getName() + researcher.getFollowingResearchers().size());
+            System.out.println(researcher.getName() + followingResearcher.getFollowerResearchers().size());
         }
-
     }
 
     public void setUnfollowResearcher(Researcher researcher, Researcher followingResearcher){
@@ -62,5 +93,14 @@ public class XmlFileManagement {
 
     public List<Researcher> getResearchers() {
         return researchers;
+    }
+
+    private Researcher findResearcherByName(String name){
+        for (Researcher researcher : researchers){
+            if (researcher.getName().equals(name)){
+                return researcher;
+            }
+        }
+        return null;
     }
 }

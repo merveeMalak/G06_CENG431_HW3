@@ -1,4 +1,5 @@
 package fileIO;
+import model.Researcher;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,23 +21,47 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
     public XmlFileIO(){}
     @Override
     public List<String[]> readFile() {
+        List<String[]> researcherList = new ArrayList<>();
         Document doc = getDocument();
         Element root = doc.getDocumentElement();
-        NodeList childElements = root.getChildNodes();
-        List<String[]> researcherList = new ArrayList<>();
-        for (int i = 0; i < childElements.getLength(); i++) {
+        NodeList researcherNodes = root.getElementsByTagName("researcher");
+        for (int i = 0; i < researcherNodes.getLength(); i++) {
             String[] researcher = new String[4];
-            Node childNode = childElements.item(i);
-            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element childElement = (Element) childNode;
-                researcher[0] = childElement.getElementsByTagName("name").item(0).getTextContent();
-                researcher[1] = childElement.getElementsByTagName("password").item(0).getTextContent();
-                NodeList following = childElement.getElementsByTagName("following_researcher_names");
-                System.out.println(following.getLength());
-            }
-        }
+            researcher[0]  = ((Element) researcherNodes.item(i)).getElementsByTagName("name").item(0).getTextContent();
+            researcher[1]  = ((Element) researcherNodes.item(i)).getElementsByTagName("password").item(0).getTextContent();
+            // Get following_researcher_names
+            Element followingResearchersElement = (Element)((Element) researcherNodes.item(i)).getElementsByTagName("following_researcher_names").item(0);
+            String followingString = "";
+            if (followingResearchersElement != null){
+                NodeList followingResearcherNodes = followingResearchersElement.getElementsByTagName("following_researcher_name");
 
-        return null;
+                for (int j = 0; j < followingResearcherNodes.getLength(); j++) {
+                    Element followingResearcherElement = (Element) followingResearcherNodes.item(j);
+                    followingString +=  followingResearcherElement.getTextContent() +  (j == followingResearcherNodes.getLength() -1 ? "" : ";" );
+                }
+            }
+            researcher[2] = followingString;
+
+            // Get follower_researcher_names
+            Element followerResearchersElement = (Element)((Element) researcherNodes.item(i)).getElementsByTagName("follower_researcher_names").item(0);
+            String followerString = "";
+            if (followerResearchersElement != null){
+                NodeList followerResearcherNodes = followerResearchersElement.getElementsByTagName("follower_researcher_name");
+
+                for (int j = 0; j < followerResearcherNodes.getLength(); j++) {
+                    Element followerResearcherElement = (Element) followerResearcherNodes.item(j);
+                    followerString +=  followerResearcherElement.getTextContent() +  (j == followerResearcherNodes.getLength() -1 ? "" : ";" );
+                }
+            }
+
+            researcher[3] = followerString;
+            researcherList.add(researcher);
+        }
+        System.out.println("ilk dosya okunduğu zaman");
+        for (String[] s : researcherList){
+            System.out.println(s[0] + " " + s[1] + " " + s[2] + " " + s[3]);
+        }
+        return researcherList;
     }
 
     @Override
@@ -144,12 +169,20 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
             try {
                 Node followingsearcherNode = findResearcherByName(doc, name);
                 Node followerSearchNode = findResearcherByName(doc, newContent);
-
                 if (followingsearcherNode != null && followerSearchNode != null ) {
                     Element researcherElement = (Element) followingsearcherNode;
-                    Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
-                    newElement.setTextContent(newContent);
-                    researcherElement.appendChild(newElement);
+                    Element followingResearchersElement = (Element) researcherElement.getElementsByTagName(changedValue).item(0);
+                    if ( followingResearchersElement == null){
+                        Element followElement = doc.createElement(changedValue);
+                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
+                        followElement.appendChild(newElement);
+                        researcherElement.appendChild(followElement);
+                    }else{
+                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
+                        newElement.setTextContent(newContent);
+                        researcherElement.appendChild(newElement);
+                    }
+
                     transformFile(doc);
                 } else {
                     System.out.println("Array element '" + changedValue + "' not found in the XML file.");

@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <researchers>
-                                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+                                            
     
     
     
@@ -33,29 +11,7 @@
     
     
     <researcher>
-                                                                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                                                        
         
         
         
@@ -66,29 +22,7 @@
         
         
         <password>tuğkan123</password>
-                                                                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                                                        
         
         
         
@@ -99,29 +33,7 @@
         
         
         <name>Tuğkan Tuğlular</name>
-                                                                                                                                                                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+                                                                                    
     
     
     
@@ -132,29 +44,7 @@
     
     
     </researcher>
-                                                                                                                                
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+                                        
     
     
     
@@ -165,29 +55,7 @@
     
     
     <researcher>
-                                                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                                                
         
         
         
@@ -197,29 +65,7 @@
         
         
         <password>dilek123</password>
-                                                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                                                
         
         
         
@@ -229,271 +75,41 @@
         
         
         <name>Dilek Öztürk</name>
-                                                                                                                                                                                                                                                            
-    
-    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                                                            
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
                                                                             
     
-        
-        
-        
-        
-        
-        
-        
-        <following_researcher_name>Serhat Caner</following_researcher_name>
-                                                            
+    
     
         
         
         
         
         
-        <following_researcher_name>Serhat Caner</following_researcher_name>
+        <following_researcher_names>
+                                                                        
+            
+            
+            
+            
+            <following_researcher_name/>
+                                                                    
+        
+        
+        
+        
+        </following_researcher_names>
                                             
     
         
         
         
-        <following_researcher_name>Serhat Caner</following_researcher_name>
+        <following_researcher_name>Yalın Baştanlar</following_researcher_name>
                             
     
         
-        <following_researcher_name>Serhat Caner</following_researcher_name>
+        <following_researcher_name>Yalın Baştanlar</following_researcher_name>
             
     </researcher>
-                                                                                                                            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+                                    
     
     
     
@@ -503,29 +119,7 @@
     
     
     <researcher>
-                                                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                                        
         
         
         
@@ -534,29 +128,7 @@
         
         
         <password>serhat123</password>
-                                                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                                                                        
         
         
         
@@ -565,224 +137,87 @@
         
         
         <name>Serhat Caner</name>
-                                                                                                                                                                                                                                                    
-    
-    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
-                                                                                    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
                                                                     
     
+    
+    
+    
+    
+    
+    
+    </researcher>
+                                
+    
+    
+    
+    
+    
+    
+    
+    <researcher>
+                                                                
         
         
         
         
         
         
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
+        <password>nesli123</password>
+                                                                
+        
+        
+        
+        
+        
+        
+        <name>Nesli Erdoğmuş</name>
+                                                            
+    
+    
+    
+    
+    
+    
+    </researcher>
+                            
+    
+    
+    
+    
+    
+    
+    <researcher>
+                                                        
+        
+        
+        
+        
+        
+        <password>yalın123</password>
+                                                        
+        
+        
+        
+        
+        
+        <name>Yalın Baştanlar</name>
                                                     
     
         
         
         
         
-        <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
+        <follower_researcher_names>
+                                                            
+            
+            
+            
+            <follower_researcher_name/>
+                                                        
+        
+        
+        
+        </follower_researcher_names>
                                     
     
         
@@ -792,267 +227,7 @@
     
         <follower_researcher_name>Dilek Öztürk</follower_researcher_name>
     </researcher>
-                                                                                                                        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <researcher>
-                                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <password>nesli123</password>
-                                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <name>Nesli Erdoğmuş</name>
-                                                                                                                                                                                                                                            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </researcher>
-                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <researcher>
-                                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <password>yalın123</password>
-                                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <name>Yalın Baştanlar</name>
-                                                                                                                                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </researcher>
-                                                                                                                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        
 
 
 

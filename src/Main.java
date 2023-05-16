@@ -23,11 +23,8 @@ public class Main {
         CsvFileManagement csvFileManagement = new CsvFileManagement(papers);
         csvFileManagement.writePapers();
         XmlFileManagement xmlFileManagement = new XmlFileManagement();
-        List<Researcher> researchers = new ArrayList<>();
-        Researcher researcher2 = new Researcher("Dilek Öztürk", "dilek123",new ArrayList<>(), new ArrayList<>());
-        Researcher researcher3 = new Researcher("Serhat Caner", "serhat123",new ArrayList<>(), new ArrayList<>());
-        xmlFileManagement.setFollowResearcher(researcher2, researcher3);
-        IFileIO xmlFileIO = new XmlFileIO();
-        xmlFileIO.readFile();
+        List<Researcher> researchers = xmlFileManagement.getResearchers();
+        xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
+
     }
 }
