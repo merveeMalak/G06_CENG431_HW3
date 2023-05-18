@@ -7,6 +7,7 @@ import model.ConferencePaper;
 import model.Paper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CsvFileManagement {
@@ -32,11 +33,21 @@ public class CsvFileManagement {
         csvFileIO.writeFileIO(paperList);
     }
 
-//    public void updateFile() {
-//        IFileIO<List<String[]>> csvFileIO = new CsvFileIO();
-//
-//
-//
-//        csvFileIO.
-//    }
+    public void readPapers() {
+        IFileIO<List<String[]>, List<String[]>> csvFileIO = new CsvFileIO();
+        List<String[]> readList = csvFileIO.readFile();
+        for (String[] line : readList) {
+            switch (line[0]) {
+                case "article": {
+                    Article article = new Article(Arrays.asList(line[1].split(",")), line[2], Integer.parseInt(line[3]), line[4], Integer.parseInt(line[5]), line[6], line[7], Integer.parseInt(line[8]));
+                    this.papers.add(article);
+                }
+                case "conference paper": {
+                    ConferencePaper conferencePaper = new ConferencePaper(Arrays.asList(line[1].split(",")), line[2], Integer.parseInt(line[3]), line[4], line[5], Integer.parseInt(line[6]));
+                    this.papers.add(conferencePaper);
+                }
+            }
+
+        }
+    }
 }

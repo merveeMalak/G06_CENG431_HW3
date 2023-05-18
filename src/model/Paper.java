@@ -1,10 +1,8 @@
 package model;
 
 import java.util.List;
-import java.util.Random;
 
 public abstract class Paper {
-    private final int MAX_NUM_OF_DOWNLOADS = 1500;
     protected List<String> authors;
     protected String title;
     protected int year;
@@ -12,14 +10,12 @@ public abstract class Paper {
     protected int numOfDownloads;
 
 
-    public Paper(List<String> authors, String title, int year, String doi) {
+    public Paper(List<String> authors, String title, int year, String doi,int numOfDownloads) {
         this.authors = authors;
         this.title = title;
         this.year = year;
         this.doi = doi;
-        Random random = new Random();
-        this.numOfDownloads = random.nextInt(MAX_NUM_OF_DOWNLOADS + 1);
-
+        this.numOfDownloads = numOfDownloads;
     }
 
     public List<String> getAuthors() {
@@ -27,7 +23,7 @@ public abstract class Paper {
     }
 
     public String getAuthorsString() {
-        return String.join(";", this.authors);
+        return String.join(",", this.authors);
     }
 
     public String getTitle() {

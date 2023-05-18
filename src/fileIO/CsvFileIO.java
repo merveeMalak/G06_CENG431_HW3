@@ -9,15 +9,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class CsvFileIO implements IFileIO<List<String[]>, List<String[]>> {
+    final private String PATH = "papers.csv";
+
     @Override
     public void writeFileIO(List<String[]> lines) {
         FileWriter writer = null;
-        File file = new File("papers.csv");
+        File file = new File(PATH);
         try {
             writer = new FileWriter(file);
         } catch (IOException e) {
@@ -35,8 +35,19 @@ public class CsvFileIO implements IFileIO<List<String[]>, List<String[]>> {
 
     @Override
     public List<String[]> readFile() {
-        return null;
+        CSVReader reader = null;
+        List<String[]> readList = new ArrayList<>();
+        try {
+            //parsing a CSV file into CSVReader class constructor
+            reader = new CSVReader(new FileReader(PATH));
+            String[] nextLine;
+            //reads one line at a time
+            while ((nextLine = reader.readNext()) != null) {
+                readList.add(nextLine);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return readList;
     }
-
-
 }
