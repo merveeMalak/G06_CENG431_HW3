@@ -7,6 +7,7 @@ import fileManagement.XmlFileManagement;
 import model.Paper;
 import model.ReadingList;
 import model.Researcher;
+import view.ICustomSubject;
 import view.LoginView;
 
 import java.util.*;
@@ -44,7 +45,6 @@ public class Main {
         xmlFileManagement.setUnfollowResearcher(researchers.get(0),researchers.get(4));
         JFrame frame = new JFrame ("MyPanel");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-
         frame.getContentPane().add (new LoginView());
         frame.pack();
         frame.setVisible (true);
