@@ -1,9 +1,11 @@
 package fileIO;
+
 import model.Researcher;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,9 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class XmlFileIO implements IFileIO<Map<String, String>> {
+public class XmlFileIO implements IFileIO<Map<String, String>, List<String[]>> {
     private final String FILE_NAME = "researchers.xml";
-    public XmlFileIO(){}
+
+    public XmlFileIO() {
+    }
+
     @Override
     public List<String[]> readFile() {
         List<String[]> researcherList = new ArrayList<>();
@@ -27,57 +32,57 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
         NodeList researcherNodes = root.getElementsByTagName("researcher");
         for (int i = 0; i < researcherNodes.getLength(); i++) {
             String[] researcher = new String[4];
-            researcher[0]  = ((Element) researcherNodes.item(i)).getElementsByTagName("name").item(0).getTextContent();
-            researcher[1]  = ((Element) researcherNodes.item(i)).getElementsByTagName("password").item(0).getTextContent();
+            researcher[0] = ((Element) researcherNodes.item(i)).getElementsByTagName("name").item(0).getTextContent();
+            researcher[1] = ((Element) researcherNodes.item(i)).getElementsByTagName("password").item(0).getTextContent();
             // Get following_researcher_names
-            Element followingResearchersElement = (Element)((Element) researcherNodes.item(i)).getElementsByTagName("following_researcher_names").item(0);
+            Element followingResearchersElement = (Element) ((Element) researcherNodes.item(i)).getElementsByTagName("following_researcher_names").item(0);
             String followingString = "";
-            if (followingResearchersElement != null){
+            if (followingResearchersElement != null) {
                 NodeList followingResearcherNodes = followingResearchersElement.getElementsByTagName("following_researcher_name");
 
                 for (int j = 0; j < followingResearcherNodes.getLength(); j++) {
                     Element followingResearcherElement = (Element) followingResearcherNodes.item(j);
-                    followingString +=  followingResearcherElement.getTextContent() +  (j == followingResearcherNodes.getLength() -1 ? "" : ";" );
+                    followingString += followingResearcherElement.getTextContent() + (j == followingResearcherNodes.getLength() - 1 ? "" : ";");
                 }
             }
             researcher[2] = followingString;
 
             // Get follower_researcher_names
-            Element followerResearchersElement = (Element)((Element) researcherNodes.item(i)).getElementsByTagName("follower_researcher_names").item(0);
+            Element followerResearchersElement = (Element) ((Element) researcherNodes.item(i)).getElementsByTagName("follower_researcher_names").item(0);
             String followerString = "";
-            if (followerResearchersElement != null){
+            if (followerResearchersElement != null) {
                 NodeList followerResearcherNodes = followerResearchersElement.getElementsByTagName("follower_researcher_name");
 
                 for (int j = 0; j < followerResearcherNodes.getLength(); j++) {
                     Element followerResearcherElement = (Element) followerResearcherNodes.item(j);
-                    followerString +=  followerResearcherElement.getTextContent() +  (j == followerResearcherNodes.getLength() -1 ? "" : ";" );
+                    followerString += followerResearcherElement.getTextContent() + (j == followerResearcherNodes.getLength() - 1 ? "" : ";");
                 }
             }
 
             researcher[3] = followerString;
             researcherList.add(researcher);
         }
-        System.out.println("ilk dosya okunduğu zaman");
-        for (String[] s : researcherList){
-            System.out.println(s[0] + " " + s[1] + " " + s[2] + " " + s[3]);
-        }
+//        System.out.println("ilk dosya okunduğu zaman");
+//        for (String[] s : researcherList){
+//            System.out.println(s[0] + " " + s[1] + " " + s[2] + " " + s[3]);
+//        }
         return researcherList;
     }
 
     @Override
-    public void writeFileIO(Map<String, String> line)  {
+    public void writeFileIO(Map<String, String> line) {
         Document doc = getDocument();
         Element researchers = doc.getDocumentElement();
-        if (findResearcherByName(doc, line.get("name")) == null){
+        if (findResearcherByName(doc, line.get("name")) == null) {
             addResearcher(doc, line, researchers);
         }
     }
 
-    private Document getDocument(){
+    private Document getDocument() {
         Document doc = null;
-        if (isFileExist()){
+        if (isFileExist()) {
             //okuyup researchers listesini oluştur
-            System.out.println("dosya var");
+//            System.out.println("dosya var");
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = null;
             try {
@@ -90,8 +95,7 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }
-        else{
+        } else {
             try {
                 doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             } catch (ParserConfigurationException e) {
@@ -103,37 +107,40 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
         return doc;
     }
 
-    private  void addResearcher(Document doc, Map<String, String> line, Element parentElement) {
+    private void addResearcher(Document doc, Map<String, String> line, Element parentElement) {
         Element researcherElement = doc.createElement("researcher");
         parentElement.appendChild(researcherElement);
         Set<String> keys = line.keySet();
         for (String key : keys) {
-            if (key.equals("following_researcher_names") || key.equals("follower_researcher_names")){
-                if (!line.get(key).isEmpty()){
+            if (key.equals("following_researcher_names") || key.equals("follower_researcher_names")) {
+                if (!line.get(key).isEmpty()) {
                     Element followElement = doc.createElement(key);
                     String[] researchers = line.get(key).split(";");
                     for (String researcher : researchers) {
-                        createElement(doc, followElement, key.substring(0,key.length()-1), researcher);
+                        createElement(doc, followElement, key.substring(0, key.length() - 1), researcher);
                     }
                     researcherElement.appendChild(followElement);
                 }
-            }else{
+            } else {
                 createElement(doc, researcherElement, key, line.get(key));
             }
         }
         transformFile(doc);
     }
-    public boolean isFileExist(){
+
+    public boolean isFileExist() {
         File xmlFile = new File(FILE_NAME);
         return (xmlFile.exists() && !xmlFile.isDirectory());
 
     }
+
     private void createElement(Document doc, Element parentElement, String tagName, String textContent) {
         Element element = doc.createElement(tagName);
         element.appendChild(doc.createTextNode(textContent));
         parentElement.appendChild(element);
     }
-    private void transformFile(Document doc){
+
+    private void transformFile(Document doc) {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = null;
         try {
@@ -151,7 +158,7 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
         }
     }
 
-    public void updateFile(String name, String changedValue, String newContent, boolean isFollow){
+    public void updateFile(String name, String changedValue, String newContent, boolean isFollow) {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = null;
         try {
@@ -165,20 +172,20 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if (isFollow){
+        if (isFollow) {
             try {
                 Node followingsearcherNode = findResearcherByName(doc, name);
                 Node followerSearchNode = findResearcherByName(doc, newContent);
-                if (followingsearcherNode != null && followerSearchNode != null ) {
+                if (followingsearcherNode != null && followerSearchNode != null) {
                     Element researcherElement = (Element) followingsearcherNode;
                     Element followingResearchersElement = (Element) researcherElement.getElementsByTagName(changedValue).item(0);
-                    if ( followingResearchersElement == null){
+                    if (followingResearchersElement == null) {
                         Element followElement = doc.createElement(changedValue);
-                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
+                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length() - 1));
                         followElement.appendChild(newElement);
                         researcherElement.appendChild(followElement);
-                    }else{
-                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length()-1));
+                    } else {
+                        Element newElement = doc.createElement(changedValue.substring(0, changedValue.length() - 1));
                         newElement.setTextContent(newContent);
                         researcherElement.appendChild(newElement);
                     }
@@ -190,7 +197,7 @@ public class XmlFileIO implements IFileIO<Map<String, String>> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
 
         }
 

@@ -2,8 +2,8 @@ package fileIO;
 
 import java.util.List;
 
-public interface IReadFileIO {
-    List<String[]> readFile();
+public interface IReadFileIO<T> {
+    T readFile();
 }
 
 

@@ -69,9 +69,9 @@ public class XmlFileManagement {
                 }
             }
         }
-        for (Researcher researcher: researchers){
-            System.out.println(researcher.getName() +" " + researcher.getFollowingResearchers().size() +" " + researcher.getFollowerResearchers().size());
-        }
+//        for (Researcher researcher: researchers){
+//            System.out.println(researcher.getName() +" " + researcher.getFollowingResearchers().size() +" " + researcher.getFollowerResearchers().size());
+//        }
     }
 
     public void setFollowResearcher(Researcher researcher, Researcher followingResearcher){
@@ -80,9 +80,9 @@ public class XmlFileManagement {
             xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), true);
             researcher.addFollowingResearcher(followingResearcher);
             followingResearcher.addFollowerResearcher(researcher);
-            System.out.println("update edildikten sonra");
-            System.out.println(researcher.getName() + researcher.getFollowingResearchers().size());
-            System.out.println(researcher.getName() + followingResearcher.getFollowerResearchers().size());
+//            System.out.println("update edildikten sonra");
+//            System.out.println(researcher.getName() + researcher.getFollowingResearchers().size());
+//            System.out.println(researcher.getName() + followingResearcher.getFollowerResearchers().size());
         }
     }
 

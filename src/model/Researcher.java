@@ -10,6 +10,7 @@ public class Researcher {
     private String password;
     private List<Researcher> followingResearchers;
     private List<Researcher> followerResearchers;
+    private List<ReadingList> readingLists;
 
 
     public Researcher(String name, String password, List<Researcher> followingResearchers, List<Researcher> followerResearchers) {
@@ -17,10 +18,13 @@ public class Researcher {
         this.password = password;
         this.followingResearchers = followingResearchers;
         this.followerResearchers = followerResearchers;
+        this.readingLists = new ArrayList<>();
     }
+
     public Researcher(String name, String password) {
-        this(name, password,new ArrayList<>(),new ArrayList<>() );
+        this(name, password, new ArrayList<>(), new ArrayList<>());
     }
+
     public String getName() {
         return this.name;
     }
@@ -43,5 +47,13 @@ public class Researcher {
 
     public void addFollowerResearcher(Researcher followerResearcher) {
         followerResearchers.add(followerResearcher);
+    }
+
+    public List<ReadingList> getReadingLists() {
+        return readingLists;
+    }
+
+    public void addReadingList(ReadingList addReadingList) {
+        this.readingLists.add(addReadingList);
     }
 }

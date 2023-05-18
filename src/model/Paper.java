@@ -45,4 +45,8 @@ public abstract class Paper {
     public String getNumOfDownloads() {
         return String.format("%s", numOfDownloads);
     }
+
+    public void increaseOneNumOfDownloads() {
+        this.numOfDownloads += 1;
+    }
 }

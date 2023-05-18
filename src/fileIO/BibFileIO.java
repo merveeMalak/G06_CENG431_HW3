@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BibFileIO implements IReadFileIO {
+public class BibFileIO implements IReadFileIO<List<String[]>> {
     private final String PATH = "Homework3/";
 
     public BibFileIO() {
@@ -19,30 +19,31 @@ public class BibFileIO implements IReadFileIO {
         File folder = new File(PATH);
         File[] listOfFiles = folder.listFiles();
         List<String[]> stringList = new ArrayList<>();
-
-        for (File file : listOfFiles) {
-            if (file.isFile() && file.getName().endsWith(".bib")) {
-                FileReader reader = null;
-                try {
-                    reader = new FileReader(String.format("%s%s", PATH, file.getName()));
-                } catch (IOException e) {
-                    System.out.println("IOException");
-                }
-                BibTeXParser parser = null;
-                try {
-                    parser = new BibTeXParser();
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                BibTeXDatabase database = null;
-                try {
-                    database = parser.parse(reader);
-                    Collection<BibTeXEntry> entries = database.getEntries().values();
-                    for (org.jbibtex.BibTeXEntry entry : entries) {
-                        stringList.add(entryToPaper(entry));
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                if (file.isFile() && file.getName().endsWith(".bib")) {
+                    FileReader reader = null;
+                    try {
+                        reader = new FileReader(String.format("%s%s", PATH, file.getName()));
+                    } catch (IOException e) {
+                        System.out.println("IOException");
                     }
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
+                    BibTeXParser parser = null;
+                    try {
+                        parser = new BibTeXParser();
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    BibTeXDatabase database = null;
+                    try {
+                        database = parser.parse(reader);
+                        Collection<BibTeXEntry> entries = database.getEntries().values();
+                        for (org.jbibtex.BibTeXEntry entry : entries) {
+                            stringList.add(entryToPaper(entry));
+                        }
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }

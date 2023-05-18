@@ -1,15 +1,19 @@
 package fileIO;
 
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import model.Paper;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class CsvFileIO implements IFileIO<List<String[]>> {
+public class CsvFileIO implements IFileIO<List<String[]>, List<String[]>> {
     @Override
     public void writeFileIO(List<String[]> lines) {
         FileWriter writer = null;

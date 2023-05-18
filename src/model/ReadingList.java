@@ -1,18 +1,45 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReadingList {
 
-    private int id;
+    @JsonProperty("readinglist_id")
+    private Number id;
+    @JsonProperty("creator_researcher_name")
     private String creatorResearcherName;
+    @JsonProperty("reading_list_name")
     private String readingListName;
-    private int numberOfPapers;
+    @JsonProperty("name_of_papers")
     private List<String> nameOfPapers;
+    @JsonProperty("number_of_papers")
+    private Number numberOfPapers;
 
-    public ReadingList(){}
+    private List<Paper> papers;
 
-    public int getId() {
+    public ReadingList() {
+        this.papers = new ArrayList<>();
+    }
+
+    public ReadingList(Number id, String creatorResearcherName, String readingListName, Number numberOfPapers, List<String> nameOfPapers) {
+        this.id = id;
+        this.creatorResearcherName = creatorResearcherName;
+        this.readingListName = readingListName;
+        this.numberOfPapers = numberOfPapers;
+        this.nameOfPapers = new ArrayList<>(nameOfPapers);
+    }
+
+    public ReadingList(Number id, String creatorResearcherName, String readingListName, List<Paper> papers) {
+        this.id = id;
+        this.creatorResearcherName = creatorResearcherName;
+        this.readingListName = readingListName;
+        this.papers = papers;
+    }
+
+    public Number getId() {
         return this.id;
     }
 
@@ -24,11 +51,11 @@ public class ReadingList {
         return this.readingListName;
     }
 
-    public int getNumberOfPapers() {
-        return this.numberOfPapers;
+    public Number getNumberOfPapers() {
+        return this.papers.size();
     }
 
     public List<String> getNameOfPapers() {
-        return this.nameOfPapers;
+        return this.papers.stream().map(Paper::getTitle).toList();
     }
 }

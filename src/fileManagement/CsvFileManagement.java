@@ -7,9 +7,7 @@ import model.ConferencePaper;
 import model.Paper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class CsvFileManagement {
     private List<Paper> papers;
@@ -19,18 +17,26 @@ public class CsvFileManagement {
     }
 
     public void writePapers() {
-        IFileIO<List<String[]>> csvFileIO = new CsvFileIO();
+        IFileIO<List<String[]>, List<String[]>> csvFileIO = new CsvFileIO();
         List<String[]> paperList = new ArrayList<>();
         for (Paper paper : this.papers) {
             if (paper instanceof ConferencePaper conferencePaper) {
                 String[] line = new String[]{"conference paper", conferencePaper.getAuthorsString(), conferencePaper.getTitle(), Integer.toString(conferencePaper.getYear()), conferencePaper.getDoi(), conferencePaper.getBookTitle(), conferencePaper.getNumOfDownloads()};
                 paperList.add(line);
             }
-            if (paper instanceof Article article){
-                String[] line = new String[]{"article", article.getAuthorsString(), article.getTitle(), Integer.toString(article.getYear()), article.getDoi(), article.getVolume(), article.getNumber(), article.getJournal(),article.getNumOfDownloads()};
+            if (paper instanceof Article article) {
+                String[] line = new String[]{"article", article.getAuthorsString(), article.getTitle(), Integer.toString(article.getYear()), article.getDoi(), article.getVolume(), article.getNumber(), article.getJournal(), article.getNumOfDownloads()};
                 paperList.add(line);
             }
         }
         csvFileIO.writeFileIO(paperList);
     }
+
+//    public void updateFile() {
+//        IFileIO<List<String[]>> csvFileIO = new CsvFileIO();
+//
+//
+//
+//        csvFileIO.
+//    }
 }
