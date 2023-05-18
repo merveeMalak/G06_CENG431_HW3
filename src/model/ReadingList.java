@@ -1,11 +1,13 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import view.ICustomObserver;
+import view.ICustomSubject;
 import java.util.List;
 
-public class ReadingList {
+public class ReadingList implements ICustomSubject {
 
     @JsonProperty("readinglist_id")
     private Number id;
@@ -57,5 +59,20 @@ public class ReadingList {
 
     public List<String> getNameOfPapers() {
         return this.papers.stream().map(Paper::getTitle).toList();
+    }
+
+    @Override
+    public void attach(ICustomObserver observer) {
+
+    }
+
+    @Override
+    public void detach(ICustomObserver observer) {
+
+    }
+
+    @Override
+    public void notifyObservers() {
+
     }
 }

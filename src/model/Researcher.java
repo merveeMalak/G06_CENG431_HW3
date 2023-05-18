@@ -1,16 +1,20 @@
 package model;
 
-import fileManagement.XmlFileManagement;
+import view.ICustomObserver;
+import view.ICustomSubject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Researcher {
+
+public class Researcher implements ICustomSubject {
     private String name;
     private String password;
     private List<Researcher> followingResearchers;
     private List<Researcher> followerResearchers;
     private List<ReadingList> readingLists;
+
+    private List<ICustomObserver> observers;
 
 
     public Researcher(String name, String password, List<Researcher> followingResearchers, List<Researcher> followerResearchers) {
@@ -19,6 +23,7 @@ public class Researcher {
         this.followingResearchers = followingResearchers;
         this.followerResearchers = followerResearchers;
         this.readingLists = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     public Researcher(String name, String password) {
@@ -45,9 +50,13 @@ public class Researcher {
         followingResearchers.add(followingResearcher);
     }
 
+    public void removeFollowingResearcher(Researcher followingResearcher){
+        followingResearchers.remove(followingResearcher);
+    }
     public void addFollowerResearcher(Researcher followerResearcher) {
         followerResearchers.add(followerResearcher);
     }
+
 
     public List<ReadingList> getReadingLists() {
         return readingLists;
@@ -55,5 +64,26 @@ public class Researcher {
 
     public void addReadingList(ReadingList addReadingList) {
         this.readingLists.add(addReadingList);
+    }
+
+    public void removeFollowerResearcher(Researcher followerResearcher){
+        followerResearchers.remove(followerResearcher);
+    }
+
+    @Override
+    public void attach(ICustomObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(ICustomObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (ICustomObserver observer: observers){
+            observer.update(this);
+        }
     }
 }
