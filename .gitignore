@@ -30,3 +30,6 @@ bin/
 
 .idea
 G06_CENG431_HW3.iml
+.idea/workspace.xml
+papers.csv
+researchers.xml
