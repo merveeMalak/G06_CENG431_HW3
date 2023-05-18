@@ -1,8 +1,11 @@
 package model;
 
+import view.ICustomObserver;
+import view.ICustomSubject;
+
 import java.util.List;
 
-public class ReadingList {
+public class ReadingList implements ICustomSubject {
 
     private int id;
     private String creatorResearcherName;
@@ -30,5 +33,20 @@ public class ReadingList {
 
     public List<String> getNameOfPapers() {
         return this.nameOfPapers;
+    }
+
+    @Override
+    public void attach(ICustomObserver observer) {
+
+    }
+
+    @Override
+    public void detach(ICustomObserver observer) {
+
+    }
+
+    @Override
+    public void notifyObservers() {
+
     }
 }

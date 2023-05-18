@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a0ef9b6-7267-49e1-b323-cae2b29d3055" name="Changes" comment="XMLFileIO and XmlFileManagement operations updated">
+    <list default="true" id="5a0ef9b6-7267-49e1-b323-cae2b29d3055" name="Changes" comment="XMLFileIO and XmlFileManagement operations completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/papers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/papers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/researchers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/researchers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/researchers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileIO/XmlFileIO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fileManagement/BibFileManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileManagement/BibFileManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fileManagement/XmlFileManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileManagement/XmlFileManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ReadingList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ReadingList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Researcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,17 +42,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/BELGELER_MERVE/CENG/CENG_8.DONEM/CENG431/HOMEWORKS/G06_CENG431_HW3/opencsv-5.7.1.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "F:/BELGELER_MERVE/CENG/CENG_8.DONEM/CENG431/HOMEWORKS/G06_CENG431_HW3/opencsv-5.7.1.jar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="fileManagement" />
@@ -116,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684274122607</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="XMLFileIO and XmlFileManagement operations completed">
+      <created>1684277795568</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1684277795568</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,7 +142,8 @@
     <MESSAGE value="Classes are created, BibFileIO updated" />
     <MESSAGE value="Bib files read and created papers" />
     <MESSAGE value="XMLFileIO and XmlFileManagement operations updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="XMLFileIO and XmlFileManagement operations updated" />
+    <MESSAGE value="XMLFileIO and XmlFileManagement operations completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="XMLFileIO and XmlFileManagement operations completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -10,7 +10,9 @@ import fileManagement.CsvFileManagement;
 import fileManagement.XmlFileManagement;
 import model.Paper;
 import model.Researcher;
+import view.LoginView;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +26,19 @@ public class Main {
         csvFileManagement.writePapers();
         XmlFileManagement xmlFileManagement = new XmlFileManagement();
         List<Researcher> researchers = xmlFileManagement.getResearchers();
+
         xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
         xmlFileManagement.setUnfollowResearcher(researchers.get(1),researchers.get(4));
         xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
         xmlFileManagement.setFollowResearcher(researchers.get(2),researchers.get(3));
         xmlFileManagement.setFollowResearcher(researchers.get(0),researchers.get(1));
         xmlFileManagement.setUnfollowResearcher(researchers.get(0),researchers.get(4));
+        JFrame frame = new JFrame ("MyPanel");
+        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+
+        frame.getContentPane().add (new LoginView());
+        frame.pack();
+        frame.setVisible (true);
+
     }
 }

@@ -1,15 +1,19 @@
 package model;
 
-import fileManagement.XmlFileManagement;
+import view.ICustomObserver;
+import view.ICustomSubject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Researcher {
+
+public class Researcher implements ICustomSubject {
     private String name;
     private String password;
     private List<Researcher> followingResearchers;
     private List<Researcher> followerResearchers;
+
+    private List<ICustomObserver> observers;
 
 
     public Researcher(String name, String password, List<Researcher> followingResearchers, List<Researcher> followerResearchers) {
@@ -17,6 +21,7 @@ public class Researcher {
         this.password = password;
         this.followingResearchers = followingResearchers;
         this.followerResearchers = followerResearchers;
+        this.observers = new ArrayList<>();
     }
     public Researcher(String name, String password) {
         this(name, password,new ArrayList<>(),new ArrayList<>() );
@@ -51,4 +56,20 @@ public class Researcher {
         followerResearchers.remove(followerResearcher);
     }
 
+    @Override
+    public void attach(ICustomObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(ICustomObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (ICustomObserver observer: observers){
+            observer.update(this);
+        }
+    }
 }
