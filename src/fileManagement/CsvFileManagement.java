@@ -5,12 +5,14 @@ import fileIO.IFileIO;
 import model.Article;
 import model.ConferencePaper;
 import model.Paper;
+import view.ICustomObserver;
+import view.ICustomSubject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CsvFileManagement {
+public class CsvFileManagement implements ICustomObserver {
     private List<Paper> papers;
 
     public CsvFileManagement(List<Paper> createdPapers) {
@@ -49,5 +51,10 @@ public class CsvFileManagement {
             }
 
         }
+    }
+
+    @Override
+    public void update(ICustomSubject subject) {
+        writePapers();
     }
 }

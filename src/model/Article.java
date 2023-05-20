@@ -25,4 +25,9 @@ public class Article extends Paper {
     public String getJournal() {
         return this.journal;
     }
+
+    @Override
+    public String getInfo() {
+        return getAuthorsString() + "\n" + getYear() + "," + getJournal() + "," + getVolume() + "," + getNumber() + "," + getDoi();
+    }
 }

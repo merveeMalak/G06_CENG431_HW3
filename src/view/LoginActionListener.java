@@ -1,23 +1,23 @@
 package view;
 
-import controller.UserController;
-import model.Researcher;
+import controller.ResearcherController;
 
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 class LoginActionListener implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private UserController userController;
+    private ResearcherController researcherController;
+    private JFrame frame;
 
-    public LoginActionListener(JTextField usernameField, JPasswordField passwordField) {
+    public LoginActionListener(JFrame frame, JTextField usernameField, JPasswordField passwordField, ResearcherController researcherController) {
         this.usernameField = usernameField;
         this.passwordField = passwordField;
-        this.userController = new UserController();
+        this.researcherController = researcherController;
+        this.frame = frame;
     }
 
     @Override
@@ -26,14 +26,12 @@ class LoginActionListener implements ActionListener {
         String password = new String(passwordField.getPassword());
         // Perform login validation here
 
-        userController.setUsername(username);
-        userController.setPassword(password);
-        if (userController.isValidResearcher()){
-
+        researcherController.setUsername(username);
+        researcherController.setPassword(password);
+        researcherController.setLoggedIn(researcherController.checkCredentials());
+        if (!researcherController.getLoggedIn()) {
+            JOptionPane.showMessageDialog(frame, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
     }
-
 
 }

@@ -1,21 +1,15 @@
-import fileIO.*;
+import controller.ResearcherController;
 import fileManagement.BibFileManagement;
 import fileManagement.CsvFileManagement;
 
 
 import fileManagement.XmlFileManagement;
 import model.Paper;
-import model.ReadingList;
 import model.Researcher;
-import view.ICustomSubject;
 import view.LoginView;
 
-import java.util.*;
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class Main {
@@ -35,20 +29,20 @@ public class Main {
 //        ReadingList readingList = new ReadingList(AVAILABLE_ID, researchers.get(4).getName(), "En Son Eklenen", papers.subList(3, 7));
 //        jsonFileIO.writeFileIO(List.of(readingList));
 //        System.out.println(jsonFileIO.readFile().get(2).getReadingListName());
-
-
-        xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
-        xmlFileManagement.setUnfollowResearcher(researchers.get(1),researchers.get(4));
-        xmlFileManagement.setFollowResearcher(researchers.get(1),researchers.get(4));
-        xmlFileManagement.setFollowResearcher(researchers.get(2),researchers.get(3));
-        xmlFileManagement.setFollowResearcher(researchers.get(0),researchers.get(1));
-        xmlFileManagement.setUnfollowResearcher(researchers.get(0),researchers.get(4));
-        JFrame frame = new JFrame ("MyPanel");
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new LoginView());
-        frame.pack();
-        frame.setVisible (true);
-
-
+        xmlFileManagement.setFollowResearcher(researchers.get(1), researchers.get(4));
+        xmlFileManagement.setUnfollowResearcher(researchers.get(1), researchers.get(4));
+        xmlFileManagement.setFollowResearcher(researchers.get(1), researchers.get(4));
+        xmlFileManagement.setFollowResearcher(researchers.get(2), researchers.get(3));
+        xmlFileManagement.setFollowResearcher(researchers.get(0), researchers.get(1));
+        xmlFileManagement.setUnfollowResearcher(researchers.get(0), researchers.get(4));
+        MainApp mainApp = new MainApp();
+//        ResearcherController researcherController = new ResearcherController();
+//        JFrame frame = new JFrame("OpenResearcher");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        LoginView view = new LoginView(frame, researcherController);
+//        researcherController.attach(view);
+//        frame.getContentPane().add(view);
+//        frame.pack();
+//        frame.setVisible(true);
     }
 }

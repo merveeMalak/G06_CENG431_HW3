@@ -14,4 +14,9 @@ public class ConferencePaper extends Paper {
     public String getBookTitle() {
         return this.bookTitle;
     }
+
+    @Override
+    public String getInfo() {
+        return getAuthorsString() + "\n" + getYear() + "," + getBookTitle() + "," + getDoi();
+    }
 }

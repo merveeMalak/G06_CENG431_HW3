@@ -24,7 +24,6 @@ public class JsonFileIO implements IFileIO<List<ReadingList>, List<ReadingList>>
         if (jsonFile.exists()) {
             try {
                 List<ReadingList> value = Arrays.asList(mapper.readValue(jsonFile, ReadingList[].class));
-                System.out.println(value);
                 readingList = new ArrayList<>(value);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -35,16 +34,14 @@ public class JsonFileIO implements IFileIO<List<ReadingList>, List<ReadingList>>
 
     @Override
     public void writeFileIO(List<ReadingList> readingLists) {
-        List<ReadingList> localData = readFile();
-        System.out.println(localData);
-        localData.addAll(readingLists);
-        System.out.println(localData);
+//        List<ReadingList> localData = readFile();
+//        localData.addAll(readingLists);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         try {
 //                writer.writeValue(Paths.get("data.json").toFile(), map);
-            writer.writeValue(Paths.get("data.json").toFile(), localData);
+            writer.writeValue(Paths.get("data.json").toFile(), readingLists);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -10,7 +10,7 @@ public abstract class Paper {
     protected int numOfDownloads;
 
 
-    public Paper(List<String> authors, String title, int year, String doi,int numOfDownloads) {
+    public Paper(List<String> authors, String title, int year, String doi, int numOfDownloads) {
         this.authors = authors;
         this.title = title;
         this.year = year;
@@ -44,5 +44,12 @@ public abstract class Paper {
 
     public void increaseOneNumOfDownloads() {
         this.numOfDownloads += 1;
+    }
+
+    public abstract String getInfo();
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

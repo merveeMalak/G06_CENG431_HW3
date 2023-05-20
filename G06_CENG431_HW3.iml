@@ -28,5 +28,7 @@
     <orderEntry type="library" name="jackson-databind-2.15.1" level="project" />
     <orderEntry type="library" name="jackson-core-2.15.1" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.15.1" level="project" />
+    <orderEntry type="library" name="MigLayout" level="project" />
+    <orderEntry type="library" name="IntelliJ IDEA GridLayout" level="project" />
   </component>
 </module>

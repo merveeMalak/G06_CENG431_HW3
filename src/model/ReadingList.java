@@ -2,15 +2,18 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
+
 import view.ICustomObserver;
 import view.ICustomSubject;
+
 import java.util.List;
 
-public class ReadingList implements ICustomSubject {
+public class ReadingList {
 
     @JsonProperty("readinglist_id")
-    private Number id;
+    private int id;
     @JsonProperty("creator_researcher_name")
     private String creatorResearcherName;
     @JsonProperty("reading_list_name")
@@ -18,7 +21,7 @@ public class ReadingList implements ICustomSubject {
     @JsonProperty("name_of_papers")
     private List<String> nameOfPapers;
     @JsonProperty("number_of_papers")
-    private Number numberOfPapers;
+    private int numberOfPapers;
 
     private List<Paper> papers;
 
@@ -26,7 +29,7 @@ public class ReadingList implements ICustomSubject {
         this.papers = new ArrayList<>();
     }
 
-    public ReadingList(Number id, String creatorResearcherName, String readingListName, Number numberOfPapers, List<String> nameOfPapers) {
+    public ReadingList(int id, String creatorResearcherName, String readingListName, int numberOfPapers, List<String> nameOfPapers) {
         this.id = id;
         this.creatorResearcherName = creatorResearcherName;
         this.readingListName = readingListName;
@@ -34,14 +37,23 @@ public class ReadingList implements ICustomSubject {
         this.nameOfPapers = new ArrayList<>(nameOfPapers);
     }
 
-    public ReadingList(Number id, String creatorResearcherName, String readingListName, List<Paper> papers) {
+    public ReadingList(int id, String creatorResearcherName, String readingListName, List<Paper> papers) {
         this.id = id;
         this.creatorResearcherName = creatorResearcherName;
         this.readingListName = readingListName;
         this.papers = papers;
     }
 
-    public Number getId() {
+    public ReadingList(int id, String creatorResearcherName, String readingListName) {
+        this.id = id;
+        this.creatorResearcherName = creatorResearcherName;
+        this.readingListName = readingListName;
+        this.papers = new ArrayList<>();
+        this.numberOfPapers = 0;
+        this.nameOfPapers = new ArrayList<>();
+    }
+
+    public int getId() {
         return this.id;
     }
 
@@ -53,7 +65,7 @@ public class ReadingList implements ICustomSubject {
         return this.readingListName;
     }
 
-    public Number getNumberOfPapers() {
+    public int getNumberOfPapers() {
         return this.papers.size();
     }
 
@@ -61,18 +73,13 @@ public class ReadingList implements ICustomSubject {
         return this.papers.stream().map(Paper::getTitle).toList();
     }
 
-    @Override
-    public void attach(ICustomObserver observer) {
-
+    public void addPaper(Paper paper) {
+        this.numberOfPapers += 1;
+        this.nameOfPapers.add(paper.getTitle());
     }
 
     @Override
-    public void detach(ICustomObserver observer) {
-
-    }
-
-    @Override
-    public void notifyObservers() {
-
+    public String toString() {
+        return this.readingListName;
     }
 }
