@@ -18,9 +18,8 @@ public class ReadingListController implements ICustomSubject {
         this.attach(this.jsonFileManagement);
     }
 
-    public void addReadingList(int id, String readingListName, String creatorName) {
-        ReadingList readingList = new ReadingList(id, creatorName, readingListName);
-        this.jsonFileManagement.addReadingList(readingList);
+    public void addReadingList(String readingListName, String creatorName) {
+        this.jsonFileManagement.addReadingList(creatorName, readingListName);
         this.notifyObservers();
     }
 

@@ -3,12 +3,14 @@ package fileManagement;
 import fileIO.IFileIO;
 import fileIO.XmlFileIO;
 import model.Researcher;
+import view.ICustomObserver;
+import view.ICustomSubject;
 
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class XmlFileManagement {
+public class XmlFileManagement implements ICustomObserver {
     private XmlFileIO xmlFileIO;
     private List<Researcher> researchers;
 
@@ -18,14 +20,15 @@ public class XmlFileManagement {
         initializeResearcher();
     }
 
-    public void initializeResearcher(){
-        if (xmlFileIO.isFileExist()){
+    public void initializeResearcher() {
+        if (xmlFileIO.isFileExist()) {
             createFromFileToResearchers(xmlFileIO.readFile());
-        }else{
+        } else {
             createResearchersFirst();
         }
 
     }
+
     public void createResearchersFirst() {
         Researcher researcher1 = new Researcher("Tuğkan Tuğlular", "tuğkan123");
         Researcher researcher2 = new Researcher("Dilek Öztürk", "dilek123");
@@ -38,9 +41,9 @@ public class XmlFileManagement {
         researchers.add(researcher4);
         researchers.add(researcher5);
 
-        for (Researcher researcher : researchers){
-            Map<String, String> researcherMap = new HashMap<>(){{
-                put("name",researcher.getName());
+        for (Researcher researcher : researchers) {
+            Map<String, String> researcherMap = new HashMap<>() {{
+                put("name", researcher.getName());
                 put("password", researcher.getPassword());
                 put("following_researcher_names", researcher.getFollowingResearchers().stream().map(Researcher::getName).collect(Collectors.joining(";")));
                 put("follower_researcher_names", researcher.getFollowerResearchers().stream().map(Researcher::getName).collect(Collectors.joining(";")));
@@ -50,18 +53,18 @@ public class XmlFileManagement {
     }
 
 
-    private void createFromFileToResearchers(List<String[]> researcherList){
-        for (String[] researcherArray : researcherList){
+    private void createFromFileToResearchers(List<String[]> researcherList) {
+        for (String[] researcherArray : researcherList) {
             researchers.add(new Researcher(researcherArray[0], researcherArray[1]));
         }
-        for (String[] researcherArray : researcherList){
+        for (String[] researcherArray : researcherList) {
             String[] followingResearchers = researcherArray[2].split(";");
-            if (followingResearchers.length != 0){
+            if (followingResearchers.length != 0) {
                 Researcher researcher = findResearcherByName(researcherArray[0]);
-                if (researcher != null){
-                    for (String researcherName : followingResearchers){
+                if (researcher != null) {
+                    for (String researcherName : followingResearchers) {
                         Researcher followingResearcher = findResearcherByName(researcherName);
-                        if (followingResearcher !=null){
+                        if (followingResearcher != null) {
                             researcher.addFollowingResearcher(followingResearcher);
                             followingResearcher.addFollowerResearcher(researcher);
                         }
@@ -71,8 +74,8 @@ public class XmlFileManagement {
         }
     }
 
-    public void setFollowResearcher(Researcher researcher, Researcher followingResearcher){
-        if (!researcher.getFollowingResearchers().contains(followingResearcher) && !followingResearcher.getFollowerResearchers().contains(researcher)){
+    public void setFollowResearcher(Researcher researcher, Researcher followingResearcher) {
+        if (!researcher.getFollowingResearchers().contains(followingResearcher) && !followingResearcher.getFollowerResearchers().contains(researcher)) {
             xmlFileIO.updateFile(researcher.getName(), "following_researcher_names", followingResearcher.getName(), true);
             xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), true);
             researcher.addFollowingResearcher(followingResearcher);
@@ -80,8 +83,8 @@ public class XmlFileManagement {
         }
     }
 
-    public void setUnfollowResearcher(Researcher researcher, Researcher followingResearcher){
-        if (researcher.getFollowingResearchers().contains(followingResearcher) && followingResearcher.getFollowerResearchers().contains(researcher)){
+    public void setUnfollowResearcher(Researcher researcher, Researcher followingResearcher) {
+        if (researcher.getFollowingResearchers().contains(followingResearcher) && followingResearcher.getFollowerResearchers().contains(researcher)) {
             xmlFileIO.updateFile(researcher.getName(), "following_researcher_names", followingResearcher.getName(), false);
             xmlFileIO.updateFile(followingResearcher.getName(), "follower_researcher_names", researcher.getName(), false);
             researcher.removeFollowingResearcher(followingResearcher);
@@ -94,12 +97,16 @@ public class XmlFileManagement {
         return researchers;
     }
 
-    private Researcher findResearcherByName(String name){
-        for (Researcher researcher : researchers){
-            if (researcher.getName().equals(name)){
+    private Researcher findResearcherByName(String name) {
+        for (Researcher researcher : researchers) {
+            if (researcher.getName().equals(name)) {
                 return researcher;
             }
         }
         return null;
+    }
+
+    @Override
+    public void update(ICustomSubject subject) {
     }
 }

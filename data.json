@@ -2,12 +2,90 @@
   "readinglist_id" : 0,
   "creator_researcher_name" : "Tuğkan Tuğlular",
   "reading_list_name" : "Deneme Listem",
-  "name_of_papers" : [ ],
-  "number_of_papers" : 0
+  "name_of_papers" : [ "Learning Test-Driven Development by Counting Lines", "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 2
 }, {
   "readinglist_id" : 1,
   "creator_researcher_name" : "Tuğkan Tuğlular",
-  "reading_list_name" : "Deneme Listem",
+  "reading_list_name" : "Deneme Le",
+  "name_of_papers" : [ "Introducing Test Automation and Test-Driven Development" ],
+  "number_of_papers" : 1
+}, {
+  "readinglist_id" : 2,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "Test Listesi",
+  "name_of_papers" : [ "Learning Test-Driven Development by Counting Lines", "A Systematic Literature Review to Support the Selection of User Acceptance Testing Techniques", "Test-Driven Modeling for Model-Driven Development" ],
+  "number_of_papers" : 3
+}, {
+  "readinglist_id" : 3,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "Son test",
+  "name_of_papers" : [ "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 1
+}, {
+  "readinglist_id" : 4,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "asf",
+  "name_of_papers" : [ "A Formally Verified Compiler Back-End", "Test Driven Development: The State of the Practice", "Test-Driven Modeling for Model-Driven Development", "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 4
+}, {
+  "readinglist_id" : 5,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "sgfhr",
+  "name_of_papers" : [ "Learning Test-Driven Development by Counting Lines", "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 2
+}, {
+  "readinglist_id" : 6,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "dhgrhj",
+  "name_of_papers" : [ "The Effectiveness of Test-Driven Development: An Industrial Case Study", "Introducing Test Automation and Test-Driven Development" ],
+  "number_of_papers" : 2
+}, {
+  "readinglist_id" : 7,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "oihj",
+  "name_of_papers" : [ "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 1
+}, {
+  "readinglist_id" : 8,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "k,nb",
+  "name_of_papers" : [ ],
+  "number_of_papers" : 0
+}, {
+  "readinglist_id" : 9,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "hjk",
+  "name_of_papers" : [ ],
+  "number_of_papers" : 0
+}, {
+  "readinglist_id" : 10,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "hjklj",
+  "name_of_papers" : [ ],
+  "number_of_papers" : 0
+}, {
+  "readinglist_id" : 11,
+  "creator_researcher_name" : "Serhat Caner",
+  "reading_list_name" : "Serhatin Listesi",
+  "name_of_papers" : [ "Learning Test-Driven Development by Counting Lines", "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 2
+}, {
+  "readinglist_id" : 12,
+  "creator_researcher_name" : "Serhat Caner",
+  "reading_list_name" : "Serhatin Yeni Listesi",
+  "name_of_papers" : [ "Impact of Test-Driven Development on Productivity, Code and Tests: A Controlled Experiment" ],
+  "number_of_papers" : 1
+}, {
+  "readinglist_id" : 13,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "No pls",
+  "name_of_papers" : [ ],
+  "number_of_papers" : 0
+}, {
+  "readinglist_id" : 14,
+  "creator_researcher_name" : "Tuğkan Tuğlular",
+  "reading_list_name" : "SADfkodsk",
   "name_of_papers" : [ ],
   "number_of_papers" : 0
 } ]

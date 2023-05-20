@@ -59,7 +59,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "MyReadingListButton"
-				"text": "My Reading Lists"
+				"text": "My Profile"
 				"font": #Font1
 				"background": #Color1
 				"foreground": #Color2
@@ -135,7 +135,7 @@ new FormModel {
 				"value": "cell 1 5,growx"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 845, 440 )
+			"location": new java.awt.Point( 880, 465 )
 			"size": new java.awt.Dimension( 788, 394 )
 		} )
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
@@ -143,7 +143,7 @@ new FormModel {
 			"$columnConstraints": "[205,fill][103,fill][20,fill][164,fill][fill]"
 			"$rowConstraints": "[][][][][][]"
 		} ) {
-			name: "ControlPanelView2"
+			name: "ResearchersView"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label4"
 				"text": "Researchers"
@@ -152,14 +152,14 @@ new FormModel {
 				"value": "cell 0 0 3 1"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "ReturnResearchers"
 				"text": "Return Homepage"
 				"icon": &SwingIcon0 new com.jformdesigner.model.SwingIcon( 2, "FileChooser.homeFolderIcon" )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 4 0,align right top,grow 0 0"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label5"
+				name: "OtherResearcherNameTitle"
 				"text": "Researcher Name"
 				"font": &Font3 new java.awt.Font( "Segoe UI", 1, 36 )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -168,13 +168,13 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane2"
 				add( new FormComponent( "javax.swing.JList" ) {
-					name: "list2"
+					name: "ResearchersList"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 1 1 5,growy"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button12"
+				name: "FollowButton"
 				"text": "Follow"
 				"font": #Font1
 				"background": #Color1
@@ -201,7 +201,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane3"
 				add( new FormComponent( "javax.swing.JList" ) {
-					name: "list3"
+					name: "OtherResearcherReadingList"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 3 2 3,growy"
@@ -209,7 +209,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane4"
 				add( new FormComponent( "javax.swing.JList" ) {
-					name: "list4"
+					name: "OtherResearcherPapersList"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 3 3 2 3,growy"
@@ -217,6 +217,128 @@ new FormModel {
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 30, 860 )
 			"size": new java.awt.Dimension( 788, 394 )
+		} )
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "fill,hidemode 3,align center center"
+			"$columnConstraints": "[118,fill][205,fill][103,fill][20,fill][164,fill][fill]"
+			"$rowConstraints": "[][][107][][][][][][][][]"
+		} ) {
+			name: "ProfileView"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ReadingListViewTitle4"
+				"text": "My Profile"
+				"font": #Font2
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "ReturnProfile"
+				"text": "Return Homepage"
+				"icon": #SwingIcon0
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 5 0,align right top,grow 0 0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ReadingListViewTitle2"
+				"text": "My Followers"
+				"font": #Font2
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ReadingListViewTitle3"
+				"text": "Following Researchers"
+				"font": #Font2
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 1 2 1"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane7"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "MyFollowersList"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2 2 1"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane8"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "MyFollowingList"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 2 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ReadingListViewTitle"
+				"text": "My Reading Lists"
+				"font": #Font2
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 3 4 1"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane5"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "MyReadingList"
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "MyReadingListValueChanged", true ) )
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4 3 5,growy"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label10"
+				"text": "Papers"
+				"font": #Font4
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 4 2 1"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane6"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "ReadingListPapers"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 5 2 4,growy"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label9"
+				"text": "Reading List Name"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 9"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "CreateInputField"
+				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "CreateInputFielCaretUpdate", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 9 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "CreateReadingListButton"
+				"text": "Create Reading List"
+				"font": #Font1
+				"background": #Color1
+				"foreground": #Color2
+				"icon": new com.jformdesigner.model.SwingIcon( 2, "FileChooser.newFolderIcon" )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "CreateReadingList", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 10 3 1,alignx center,growx 0"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "RemoveSelectedPaperButton"
+				"text": "Remove Selected Paper"
+				"font": #Font1
+				"background": #Color1
+				"foreground": #Color2
+				"icon": new com.jformdesigner.model.SwingIcon( 2, "InternalFrame.closeIcon" )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 10 2 1,alignx center,growx 0"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 855, 925 )
+			"size": new java.awt.Dimension( 788, 589 )
 		} )
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "fill,hidemode 3,align center center"
@@ -232,9 +354,10 @@ new FormModel {
 				"value": "cell 0 0 3 1"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "ReturnButton"
+				name: "ReturnPapers"
 				"text": "Return Homepage"
 				"icon": #SwingIcon0
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ReturnHomePage", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 4 0,align right top,grow 0 0"
 			} )
@@ -252,7 +375,7 @@ new FormModel {
 					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "PaperListValueChanged", true ) )
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 1 2 5,growy"
+				"value": "cell 0 1 2 5,growy,width 300:300"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "PaperInfo"
@@ -290,91 +413,7 @@ new FormModel {
 				"value": "cell 4 5,alignx center,growx 0"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 875, 55 )
-			"size": new java.awt.Dimension( 788, 394 )
-		} )
-		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-			"$layoutConstraints": "fill,hidemode 3,align center center"
-			"$columnConstraints": "[118,fill][205,fill][103,fill][20,fill][164,fill][fill]"
-			"$rowConstraints": "[][][][][][][][]"
-		} ) {
-			name: "ReadingListView"
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "ReadingListViewTitle"
-				"text": "My Reading Lists"
-				"font": #Font2
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 0 4 1"
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "ReturnHomePageButton"
-				"text": "Return Homepage"
-				"icon": #SwingIcon0
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 5 0,align right top,grow 0 0"
-			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane5"
-				add( new FormComponent( "javax.swing.JList" ) {
-					name: "MyReadingList"
-				} )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 1 3 5,growy"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label10"
-				"text": "Papers"
-				"font": #Font4
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 4 1 2 1"
-			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane6"
-				add( new FormComponent( "javax.swing.JList" ) {
-					name: "ReadingListPapers"
-				} )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 4 2 2 4,growy"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label9"
-				"text": "Reading List Name"
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 6"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "CreateInputField"
-				addEvent( new FormEvent( "javax.swing.event.CaretListener", "caretUpdate", "CreateInputFielCaretUpdate", true ) )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 6 2 1"
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "CreateReadingListButton"
-				"text": "Create Reading List"
-				"font": #Font1
-				"background": #Color1
-				"foreground": #Color2
-				"icon": new com.jformdesigner.model.SwingIcon( 2, "FileChooser.newFolderIcon" )
-				"enabled": false
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "CreateReadingList", true ) )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 7 3 1,alignx center,growx 0"
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "RemoveSelectedPaperButton"
-				"text": "Remove Selected Paper"
-				"font": #Font1
-				"background": #Color1
-				"foreground": #Color2
-				"icon": new com.jformdesigner.model.SwingIcon( 2, "InternalFrame.closeIcon" )
-				"enabled": false
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 4 7 2 1,alignx center,growx 0"
-			} )
-		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 840, 870 )
+			"location": new java.awt.Point( 860, 45 )
 			"size": new java.awt.Dimension( 788, 394 )
 		} )
 	}

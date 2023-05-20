@@ -1,4 +1,3 @@
-import java.beans.*;
 import javax.swing.event.*;
 
 import controller.PaperController;
@@ -6,13 +5,14 @@ import controller.ReadingListController;
 import controller.ResearcherController;
 import model.Paper;
 import model.ReadingList;
+import model.Researcher;
 import net.miginfocom.swing.MigLayout;
-//import org.jdesktop.swingx.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import java.util.Objects;
+import java.util.Vector;
 /*
  * Created by JFormDesigner on Sat May 20 02:04:12 TRT 2023
  */
@@ -54,7 +54,6 @@ public class MainApp extends JPanel {
         }
     }
 
-
     private void UsernameFieldCaretUpdate(CaretEvent e) {
         char[] password = PasswordField.getPassword();
         String username = UsernameField.getText();
@@ -67,21 +66,69 @@ public class MainApp extends JPanel {
         LoginButton.setEnabled(password.length != 0 && !Objects.equals(username, ""));
     }
 
-    private void button1(ActionEvent e) {
-        // TODO add your code here
+    private void Researchers(ActionEvent e) {
+        MainFrame.getContentPane().removeAll();
+        ResearchersList.setListData(researcherController.getOtherResearchers(researcherController.getResearcherName()).toArray(new Researcher[0]));
+        ResearchersList.setSelectedValue(researcherController.getOtherResearchers(researcherController.getResearcherName()).get(0), true);
+        OtherResearcherNameTitle.setText(researcherController.getOtherResearchers(researcherController.getResearcherName()).get(0).getName());
+        MainFrame.getContentPane().add(ResearchersView);
+        MainFrame.pack();
+        MainFrame.setVisible(true);
     }
 
-    private void UsernameFieldPropertyChange(PropertyChangeEvent e) {
-        // TODO add your code here
+    private void OtherResearcherPropertyChange(ListSelectionEvent e) {
+        Researcher selectedResearcher = ResearchersList.getSelectedValue();
+        if (selectedResearcher != null) {
+            OtherResearcherNameTitle.setText(selectedResearcher.getName());
+            List<ReadingList> readingLists = readingListController.getReadingLists(selectedResearcher.getName());
+            if (readingLists != null && readingLists.size() > 0) {
+                OtherResearcherReadingList.setListData(readingLists.toArray(new ReadingList[0]));
+            } else {
+                OtherResearcherReadingList.setListData(new Vector<>());
+            }
+        }
+    }
+
+    private void ReadingListsPropertyChange(ListSelectionEvent e) {
+        ReadingList readingList = OtherResearcherReadingList.getSelectedValue();
+        if (readingList != null && readingList.getNumberOfPapers() > 0) {
+            OtherResearcherPapersList.setListData(readingList.getNameOfPapers().toArray());
+        } else {
+            OtherResearcherPapersList.setListData(new Vector<>());
+        }
+    }
+
+    private void ChangeFollowButton(ListSelectionEvent e) {
+        Researcher selectedResearcher = ResearchersList.getSelectedValue();
+        if (selectedResearcher != null && researcherController.getIsFollowThisResearcher(selectedResearcher)) {
+            FollowButton.setText("Unfollow");
+        } else {
+            FollowButton.setText("Follow");
+        }
+    }
+
+    private void ChangeFollowStatus(ActionEvent e) {
+        Researcher selectedResearcher = ResearchersList.getSelectedValue();
+        if (selectedResearcher != null) {
+            if (researcherController.getIsFollowThisResearcher(selectedResearcher)) {
+                researcherController.setUnfollowResearcher(researcherController.getCurrentResearcher(), selectedResearcher);
+                FollowButton.setText("Follow");
+            } else {
+                researcherController.setFollowResearcher(researcherController.getCurrentResearcher(), selectedResearcher);
+                FollowButton.setText("Unfollow");
+            }
+            researcherController.notifyObservers();
+        }
     }
 
     private void Papers(ActionEvent e) {
+        MainFrame.getContentPane().removeAll();
         PaperList.setListData(paperController.getPapers().toArray(new Paper[0]));
         PaperList.setSelectedValue(paperController.getPapers().get(0), true);
+        ReadingListDropdown.removeAllItems();
         for (ReadingList readingList : readingListController.getReadingLists(researcherController.getResearcherName())) {
             ReadingListDropdown.addItem(readingList);
         }
-        MainFrame.getContentPane().removeAll();
         MainFrame.getContentPane().add(PapersView);
         MainFrame.pack();
         MainFrame.setVisible(true);
@@ -89,23 +136,42 @@ public class MainApp extends JPanel {
 
     private void PaperListValueChanged(ListSelectionEvent e) {
         Paper selectedPaper = PaperList.getSelectedValue();
-        PaperTitle.setText(selectedPaper.getTitle());
-        PaperInfo.setText(selectedPaper.getInfo());
+        if (selectedPaper != null) {
+            NumberOfDownloads.setText(selectedPaper.getNumOfDownloads());
+            PaperTitle.setText("<html><div style='text-align: center'>" + selectedPaper.getTitle() + "</div></html>");
+            PaperInfo.setText("<html><div style='white-space: pre-line'>" + selectedPaper.getInfo() + "</div></html>");
+        }
     }
 
     private void Download(ActionEvent e) {
         Paper selectedPaper = PaperList.getSelectedValue();
         selectedPaper.increaseOneNumOfDownloads();
+        NumberOfDownloads.setText(selectedPaper.getNumOfDownloads());
         paperController.notifyObservers();
     }
 
-    private void MyReadingList(ActionEvent e) {
-        MyReadingList.setListData(readingListController.getReadingLists(researcherController.getResearcherName()).toArray(new ReadingList[0]));
-        if (readingListController.getReadingLists(researcherController.getResearcherName()).size() > 0) {
-            MyReadingList.setSelectedValue(readingListController.getReadingLists(researcherController.getResearcherName()).get(0), true);
-        }
+    private void MyProfile(ActionEvent e) {
         MainFrame.getContentPane().removeAll();
-        MainFrame.getContentPane().add(ReadingListView);
+        List<ReadingList> readingLists = readingListController.getReadingLists(researcherController.getResearcherName());
+        ReadingList[] readingListArray = readingLists.toArray(new ReadingList[0]);
+        MyReadingList.setListData(readingListArray);
+        if (readingLists.size() > 0) {
+            MyReadingList.setSelectedValue(readingLists.get(0), true);
+            if (readingListController.getReadingLists(researcherController.getResearcherName()).get(0).getNumberOfPapers() > 0) {
+                ReadingListPapers.setSelectedValue(readingListController.getReadingLists(researcherController.getResearcherName()).get(0).getNameOfPapers().get(0), true);
+            }
+        }
+        List<Researcher> myFollowers = researcherController.getFollowers();
+        if (myFollowers != null) {
+            MyFollowersList.setListData(myFollowers.toArray());
+        }
+        List<Researcher> myFollowings = researcherController.getFollowings();
+        if (myFollowings != null) {
+            MyFollowingList.setListData(myFollowings.toArray());
+        }
+
+
+        MainFrame.getContentPane().add(ProfileView);
         MainFrame.pack();
         MainFrame.setVisible(true);
     }
@@ -117,27 +183,66 @@ public class MainApp extends JPanel {
 
     private void CreateReadingList(ActionEvent e) {
         String newReadingListName = CreateInputField.getText();
-        readingListController.addReadingList(0, newReadingListName, researcherController.getResearcherName());
-        MyReadingList.setListData(readingListController.getReadingLists(researcherController.getResearcherName()).toArray(new ReadingList[0]));
+        readingListController.addReadingList(newReadingListName, researcherController.getResearcherName());
+        ReadingList[] readingLists = readingListController.getReadingLists(researcherController.getResearcherName()).toArray(new ReadingList[0]);
+        MyReadingList.setListData(readingLists);
         CreateInputField.setText("");
     }
 
     private void AddPaperToReadingList(ActionEvent e) {
         Paper selectedPaper = PaperList.getSelectedValue();
         ReadingList selectedReadingList = (ReadingList) ReadingListDropdown.getSelectedItem();
-        if (selectedReadingList != null) {
-            selectedReadingList.addPaper(selectedPaper);
-            System.out.println(selectedReadingList.getNameOfPapers());
-            System.out.println(selectedReadingList.getNumberOfPapers());
+        if (selectedReadingList != null && selectedReadingList.addPaper(selectedPaper)) {
             readingListController.setReadingList(selectedReadingList);
+            readingListController.notifyObservers();
+            JOptionPane.showMessageDialog(MainFrame, "Success", "Success", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(MainFrame, "This paper is already in this reading list", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        readingListController.notifyObservers();
     }
 
-    private void Add(ActionEvent e) {
-        // TODO add your code here
+    private void ReturnHomePage(ActionEvent e) {
+        MainFrame.getContentPane().removeAll();
+        MainFrame.getContentPane().add(HomePageView);
+        MainFrame.pack();
+        MainFrame.setVisible(true);
     }
 
+    private void MyReadingListValueChanged(ListSelectionEvent e) {
+        ReadingList readingList = MyReadingList.getSelectedValue();
+        RemoveSelectedPaperButton.setEnabled(false);
+        if (readingList != null) {
+            ReadingListPapers.setListData(readingList.getNameOfPapers().toArray(new String[0]));
+        }
+    }
+
+    private void RemoveSelectedPaper(ActionEvent e) {
+        ReadingList selectedReadingList = MyReadingList.getSelectedValue();
+        if (selectedReadingList != null) {
+            String selectedPaperName = ReadingListPapers.getSelectedValue();
+            if (selectedPaperName != null) {
+                if (selectedReadingList.removePaper(selectedPaperName)) {
+                    readingListController.setReadingList(selectedReadingList);
+                    JOptionPane.showMessageDialog(MainFrame, "Success", "Success", JOptionPane.PLAIN_MESSAGE);
+                    RemoveSelectedPaperButton.setEnabled(false);
+                    readingListController.notifyObservers();
+                    ReadingList readingList = MyReadingList.getSelectedValue();
+                    if (readingList != null) {
+                        ReadingListPapers.setListData(readingList.getNameOfPapers().toArray(new String[0]));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame, "This paper is NOT in the selected reading list", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+
+    private void SelectedPaperValueChanged(ListSelectionEvent e) {
+        String selectedPaperName = ReadingListPapers.getSelectedValue();
+        if (selectedPaperName != null) {
+            RemoveSelectedPaperButton.setEnabled(true);
+        }
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -157,22 +262,41 @@ public class MainApp extends JPanel {
         PasswordField = new JPasswordField();
         Seperator = new JPopupMenu.Separator();
         LoginButton = new JButton();
-        ControlPanelView2 = new JPanel();
+        ResearchersView = new JPanel();
         label4 = new JLabel();
-        button2 = new JButton();
-        label5 = new JLabel();
+        ReturnResearchers = new JButton();
+        OtherResearcherNameTitle = new JLabel();
         scrollPane2 = new JScrollPane();
-        list2 = new JList();
-        button12 = new JButton();
+        ResearchersList = new JList<>();
+        FollowButton = new JButton();
         label6 = new JLabel();
         label7 = new JLabel();
         scrollPane3 = new JScrollPane();
-        list3 = new JList();
+        OtherResearcherReadingList = new JList<>();
         scrollPane4 = new JScrollPane();
-        list4 = new JList();
+        OtherResearcherPapersList = new JList<>();
+        ProfileView = new JPanel();
+        ReadingListViewTitle4 = new JLabel();
+        ReturnProfile = new JButton();
+        ReadingListViewTitle2 = new JLabel();
+        ReadingListViewTitle3 = new JLabel();
+        scrollPane7 = new JScrollPane();
+        MyFollowersList = new JList<>();
+        scrollPane8 = new JScrollPane();
+        MyFollowingList = new JList<>();
+        ReadingListViewTitle = new JLabel();
+        scrollPane5 = new JScrollPane();
+        MyReadingList = new JList<>();
+        label10 = new JLabel();
+        scrollPane6 = new JScrollPane();
+        ReadingListPapers = new JList<String>();
+        label9 = new JLabel();
+        CreateInputField = new JTextField();
+        CreateReadingListButton = new JButton();
+        RemoveSelectedPaperButton = new JButton();
         PapersView = new JPanel();
         Title = new JLabel();
-        ReturnButton = new JButton();
+        ReturnPapers = new JButton();
         PaperTitle = new JLabel();
         scrollPane1 = new JScrollPane();
         PaperList = new JList<>();
@@ -180,18 +304,7 @@ public class MainApp extends JPanel {
         ReadingListDropdown = new JComboBox<ReadingList>();
         DownloadButton = new JButton();
         AddButton = new JButton();
-        ReadingListView = new JPanel();
-        ReadingListViewTitle = new JLabel();
-        ReturnHomePageButton = new JButton();
-        scrollPane5 = new JScrollPane();
-        MyReadingList = new JList<>();
-        label10 = new JLabel();
-        scrollPane6 = new JScrollPane();
-        ReadingListPapers = new JList();
-        label9 = new JLabel();
-        CreateInputField = new JTextField();
-        CreateReadingListButton = new JButton();
-        RemoveSelectedPaperButton = new JButton();
+        NumberOfDownloads = new JLabel();
 
         //======== MainFrame ========
         {
@@ -204,12 +317,12 @@ public class MainApp extends JPanel {
 
         //======== HomePageView ========
         {
-            HomePageView.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.
-            border.EmptyBorder(0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax.swing.border.TitledBorder.CENTER
-            ,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069al\u006fg",java.awt.Font
-            .BOLD,12),java.awt.Color.red),HomePageView. getBorder()));HomePageView. addPropertyChangeListener(
-            new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062or\u0064er"
-            .equals(e.getPropertyName()))throw new RuntimeException();}});
+            HomePageView.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
+            ( 0, 0, 0, 0) , "", javax. swing. border. TitledBorder. CENTER, javax. swing. border
+            . TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
+            . Color. red) ,HomePageView. getBorder( )) ); HomePageView. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
+            propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( )
+            ; }} );
             HomePageView.setLayout(new MigLayout(
                 "insets panel,hidemode 3,align center center",
                 // columns
@@ -243,7 +356,6 @@ public class MainApp extends JPanel {
             PapersButton.setForeground(Color.white);
             PapersButton.setIcon(UIManager.getIcon("FileView.fileIcon"));
             PapersButton.addActionListener(e -> {
-            button1(e);
             Papers(e);
         });
             HomePageView.add(PapersButton, "cell 0 4,growx");
@@ -254,18 +366,17 @@ public class MainApp extends JPanel {
             ResearchersButton.setBackground(new Color(0x00cccc));
             ResearchersButton.setForeground(Color.white);
             ResearchersButton.setIcon(UIManager.getIcon("PasswordField.revealIcon"));
-            ResearchersButton.addActionListener(e -> button1(e));
+            ResearchersButton.addActionListener(e -> Researchers(e));
             HomePageView.add(ResearchersButton, "cell 1 4,growx");
 
             //---- MyReadingListButton ----
-            MyReadingListButton.setText("My Reading Lists");
+            MyReadingListButton.setText("My Profile");
             MyReadingListButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
             MyReadingListButton.setBackground(new Color(0x00cccc));
             MyReadingListButton.setForeground(Color.white);
             MyReadingListButton.setIcon(UIManager.getIcon("FileChooser.detailsViewIcon"));
             MyReadingListButton.addActionListener(e -> {
-            button1(e);
-            MyReadingList(e);
+            MyProfile(e);
         });
             HomePageView.add(MyReadingListButton, "cell 2 4,alignx center,growx 0");
         }
@@ -273,11 +384,11 @@ public class MainApp extends JPanel {
         //======== LoginView ========
         {
             LoginView.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new
-            javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax
+            javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "", javax
             . swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java
-            .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt
+            .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
             . Color. red) ,LoginView. getBorder( )) ); LoginView. addPropertyChangeListener (new java. beans.
-            PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .
+            PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .
             equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
             LoginView.setLayout(new MigLayout(
                 "insets 50,hidemode 3,align center center",
@@ -308,9 +419,7 @@ public class MainApp extends JPanel {
             LoginView.add(UsernameTag, "cell 0 2,alignx right,growx 0");
 
             //---- UsernameField ----
-            UsernameField.addPropertyChangeListener("text", e -> UsernameFieldPropertyChange(e));
             UsernameField.addCaretListener(e -> UsernameFieldCaretUpdate(e));
-            UsernameField.addPropertyChangeListener(e -> UsernameFieldPropertyChange(e));
             LoginView.add(UsernameField, "pad 0,cell 1 2,align left center,grow 0 0,wmin 450");
 
             //---- PasswordTag ----
@@ -331,20 +440,19 @@ public class MainApp extends JPanel {
             LoginButton.setForeground(Color.white);
             LoginButton.setEnabled(false);
             LoginButton.addActionListener(e -> {
-            button1(e);
             Login(e);
         });
             LoginView.add(LoginButton, "cell 1 5,growx");
         }
 
-        //======== ControlPanelView2 ========
+        //======== ResearchersView ========
         {
-            ControlPanelView2.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0
-            ,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM
-            ,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt.Color.red),
-            ControlPanelView2. getBorder()));ControlPanelView2. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
-            ){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException();}});
-            ControlPanelView2.setLayout(new MigLayout(
+            ResearchersView.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0
+            ,0,0,0), "",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM
+            ,new java.awt.Font("Dialo\u0067",java.awt.Font.BOLD,12),java.awt.Color.red),
+            ResearchersView. getBorder()));ResearchersView. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
+            ){if("borde\u0072".equals(e.getPropertyName()))throw new RuntimeException();}});
+            ResearchersView.setLayout(new MigLayout(
                 "fill,hidemode 3,align center center",
                 // columns
                 "[205,fill]" +
@@ -363,65 +471,191 @@ public class MainApp extends JPanel {
             //---- label4 ----
             label4.setText("Researchers");
             label4.setFont(new Font("Segoe UI", Font.BOLD, 28));
-            ControlPanelView2.add(label4, "cell 0 0 3 1");
+            ResearchersView.add(label4, "cell 0 0 3 1");
 
-            //---- button2 ----
-            button2.setText("Return Homepage");
-            button2.setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
-            ControlPanelView2.add(button2, "cell 4 0,align right top,grow 0 0");
+            //---- ReturnResearchers ----
+            ReturnResearchers.setText("Return Homepage");
+            ReturnResearchers.setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
+            ReturnResearchers.addActionListener(e -> ReturnHomePage(e));
+            ResearchersView.add(ReturnResearchers, "cell 4 0,align right top,grow 0 0");
 
-            //---- label5 ----
-            label5.setText("Researcher Name");
-            label5.setFont(new Font("Segoe UI", Font.BOLD, 36));
-            ControlPanelView2.add(label5, "cell 2 1 3 1,alignx center,growx 0");
+            //---- OtherResearcherNameTitle ----
+            OtherResearcherNameTitle.setText("Researcher Name");
+            OtherResearcherNameTitle.setFont(new Font("Segoe UI", Font.BOLD, 36));
+            ResearchersView.add(OtherResearcherNameTitle, "cell 2 1 3 1,alignx center,growx 0");
 
             //======== scrollPane2 ========
             {
-                scrollPane2.setViewportView(list2);
+                scrollPane2.setViewportView(ResearchersList);
+                ResearchersList.addListSelectionListener(e -> {
+                    OtherResearcherPropertyChange(e);
+                    ChangeFollowButton(e);
+                });
             }
-            ControlPanelView2.add(scrollPane2, "cell 0 1 1 5,growy");
+            ResearchersView.add(scrollPane2, "cell 0 1 1 5,growy");
 
-            //---- button12 ----
-            button12.setText("Follow");
-            button12.setFont(new Font("Segoe UI", Font.BOLD, 22));
-            button12.setBackground(new Color(0x00cccc));
-            button12.setForeground(Color.white);
-            button12.setIcon(UIManager.getIcon("FileView.computerIcon"));
-            button12.addActionListener(e -> button1(e));
-            ControlPanelView2.add(button12, "cell 1 1,alignx center,growx 0");
+            //---- FollowButton ----
+            FollowButton.setText("Follow");
+            FollowButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
+            FollowButton.setBackground(new Color(0x00cccc));
+            FollowButton.setForeground(Color.white);
+            FollowButton.setIcon(UIManager.getIcon("FileView.computerIcon"));
+            FollowButton.addActionListener(e -> ChangeFollowStatus(e));
+            ResearchersView.add(FollowButton, "cell 1 1,alignx center,growx 0");
 
             //---- label6 ----
             label6.setText("Reading Lists");
             label6.setFont(new Font("Segoe UI", Font.PLAIN, 22));
-            ControlPanelView2.add(label6, "cell 1 2");
+            ResearchersView.add(label6, "cell 1 2");
 
             //---- label7 ----
             label7.setText("Papers");
             label7.setFont(new Font("Segoe UI", Font.PLAIN, 22));
-            ControlPanelView2.add(label7, "cell 3 2");
+            ResearchersView.add(label7, "cell 3 2");
 
             //======== scrollPane3 ========
             {
-                scrollPane3.setViewportView(list3);
+                scrollPane3.setViewportView(OtherResearcherReadingList);
+                OtherResearcherReadingList.addListSelectionListener(e -> ReadingListsPropertyChange(e));
             }
-            ControlPanelView2.add(scrollPane3, "cell 1 3 2 3,growy");
+            ResearchersView.add(scrollPane3, "cell 1 3 2 3,growy");
 
             //======== scrollPane4 ========
             {
-                scrollPane4.setViewportView(list4);
+                scrollPane4.setViewportView(OtherResearcherPapersList);
             }
-            ControlPanelView2.add(scrollPane4, "cell 3 3 2 3,growy");
+            ResearchersView.add(scrollPane4, "cell 3 3 2 3,growy");
+        }
+
+        //======== ProfileView ========
+        {
+            ProfileView.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+            EmptyBorder( 0, 0, 0, 0) , "", javax. swing. border. TitledBorder. CENTER, javax. swing
+            . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
+            java. awt. Color. red) ,ProfileView. getBorder( )) ); ProfileView. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () ))
+            throw new RuntimeException( ); }} );
+            ProfileView.setLayout(new MigLayout(
+                "fill,hidemode 3,align center center",
+                // columns
+                "[118,fill]" +
+                "[205,fill]" +
+                "[103,fill]" +
+                "[20,fill]" +
+                "[164,fill]" +
+                "[fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[107]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]"));
+
+            //---- ReadingListViewTitle4 ----
+            ReadingListViewTitle4.setText("My Profile");
+            ReadingListViewTitle4.setFont(new Font("Segoe UI", Font.BOLD, 28));
+            ProfileView.add(ReadingListViewTitle4, "cell 0 0");
+
+            //---- ReturnProfile ----
+            ReturnProfile.setText("Return Homepage");
+            ReturnProfile.setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
+            ReturnProfile.addActionListener(e -> ReturnHomePage(e));
+            ProfileView.add(ReturnProfile, "cell 5 0,align right top,grow 0 0");
+
+            //---- ReadingListViewTitle2 ----
+            ReadingListViewTitle2.setText("My Followers");
+            ReadingListViewTitle2.setFont(new Font("Segoe UI", Font.BOLD, 28));
+            ProfileView.add(ReadingListViewTitle2, "cell 0 1");
+
+            //---- ReadingListViewTitle3 ----
+            ReadingListViewTitle3.setText("Following Researchers");
+            ReadingListViewTitle3.setFont(new Font("Segoe UI", Font.BOLD, 28));
+            ProfileView.add(ReadingListViewTitle3, "cell 4 1 2 1");
+
+            //======== scrollPane7 ========
+            {
+                scrollPane7.setViewportView(MyFollowersList);
+            }
+            ProfileView.add(scrollPane7, "cell 0 2 2 1");
+
+            //======== scrollPane8 ========
+            {
+                scrollPane8.setViewportView(MyFollowingList);
+            }
+            ProfileView.add(scrollPane8, "cell 4 2 2 1");
+
+            //---- ReadingListViewTitle ----
+            ReadingListViewTitle.setText("My Reading Lists");
+            ReadingListViewTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
+            ProfileView.add(ReadingListViewTitle, "cell 0 3 4 1");
+
+            //======== scrollPane5 ========
+            {
+
+                //---- MyReadingList ----
+                MyReadingList.addListSelectionListener(e -> MyReadingListValueChanged(e));
+                scrollPane5.setViewportView(MyReadingList);
+            }
+            ProfileView.add(scrollPane5, "cell 0 4 3 5,growy");
+
+            //---- label10 ----
+            label10.setText("Papers");
+            label10.setFont(new Font("Segoe UI", Font.PLAIN, 22));
+            ProfileView.add(label10, "cell 4 4 2 1");
+
+            //======== scrollPane6 ========
+            {
+                scrollPane6.setViewportView(ReadingListPapers);
+                ReadingListPapers.addListSelectionListener(e -> SelectedPaperValueChanged(e));
+            }
+            ProfileView.add(scrollPane6, "cell 4 5 2 4,growy");
+
+            //---- label9 ----
+            label9.setText("Reading List Name");
+            ProfileView.add(label9, "cell 0 9");
+
+            //---- CreateInputField ----
+            CreateInputField.addCaretListener(e -> CreateInputFieldCaretUpdate(e));
+            ProfileView.add(CreateInputField, "cell 1 9 2 1");
+
+            //---- CreateReadingListButton ----
+            CreateReadingListButton.setText("Create Reading List");
+            CreateReadingListButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
+            CreateReadingListButton.setBackground(new Color(0x00cccc));
+            CreateReadingListButton.setForeground(Color.white);
+            CreateReadingListButton.setIcon(UIManager.getIcon("FileChooser.newFolderIcon"));
+            CreateReadingListButton.setEnabled(false);
+            CreateReadingListButton.addActionListener(e -> {
+            CreateReadingList(e);
+        });
+            ProfileView.add(CreateReadingListButton, "cell 0 10 3 1,alignx center,growx 0");
+
+            //---- RemoveSelectedPaperButton ----
+            RemoveSelectedPaperButton.setText("Remove Selected Paper");
+            RemoveSelectedPaperButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
+            RemoveSelectedPaperButton.setBackground(new Color(0x00cccc));
+            RemoveSelectedPaperButton.setForeground(Color.white);
+            RemoveSelectedPaperButton.setIcon(UIManager.getIcon("InternalFrame.closeIcon"));
+            RemoveSelectedPaperButton.setEnabled(false);
+            RemoveSelectedPaperButton.addActionListener(e -> RemoveSelectedPaper(e));
+            ProfileView.add(RemoveSelectedPaperButton, "cell 4 10 2 1,alignx center,growx 0");
         }
 
         //======== PapersView ========
         {
-            PapersView.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-            swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border
-            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
-            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,PapersView. getBorder
-            ( )) ); PapersView. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-            .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
-            ( ); }} );
+            PapersView.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+            EmptyBorder( 0, 0, 0, 0) , "", javax. swing. border. TitledBorder. CENTER, javax. swing
+            . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
+            java. awt. Color. red) ,PapersView. getBorder( )) );
+            PapersView. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () ))
+            throw new RuntimeException( ); }} );
             PapersView.setLayout(new MigLayout(
                 "fill,hidemode 3,align center center",
                 // columns
@@ -443,14 +677,16 @@ public class MainApp extends JPanel {
             Title.setFont(new Font("Segoe UI", Font.BOLD, 28));
             PapersView.add(Title, "cell 0 0 3 1");
 
-            //---- ReturnButton ----
-            ReturnButton.setText("Return Homepage");
-            ReturnButton.setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
-            PapersView.add(ReturnButton, "cell 4 0,align right top,grow 0 0");
+            //---- ReturnPapers ----
+            ReturnPapers.setText("Return Homepage");
+            ReturnPapers.setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
+            ReturnPapers.addActionListener(e -> ReturnHomePage(e));
+            PapersView.add(ReturnPapers, "cell 4 0,align right top,grow 0 0");
 
             //---- PaperTitle ----
             PaperTitle.setText("PAPER TITLE");
             PaperTitle.setFont(new Font("Segoe UI", Font.BOLD, 36));
+            PaperTitle.setMaximumSize(new Dimension(600,300));
             PapersView.add(PaperTitle, "cell 3 1 2 1,alignx center,growx 0");
 
             //======== scrollPane1 ========
@@ -460,11 +696,12 @@ public class MainApp extends JPanel {
                 PaperList.addListSelectionListener(e -> PaperListValueChanged(e));
                 scrollPane1.setViewportView(PaperList);
             }
-            PapersView.add(scrollPane1, "cell 0 1 2 5,growy");
+            PapersView.add(scrollPane1, "cell 0 1 2 5,growy,width 300:300");
 
             //---- PaperInfo ----
             PaperInfo.setText("PAPER HAKKINDA BILGILER");
             PaperInfo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+            PaperInfo.setMaximumSize(new Dimension(800,100));
             PapersView.add(PaperInfo, "cell 3 2 2 2,aligny top,growy 0");
             PapersView.add(ReadingListDropdown, "cell 3 4 2 1");
 
@@ -474,10 +711,13 @@ public class MainApp extends JPanel {
             DownloadButton.setBackground(new Color(0x00cccc));
             DownloadButton.setForeground(Color.white);
             DownloadButton.addActionListener(e -> {
-            button1(e);
             Download(e);
         });
             PapersView.add(DownloadButton, "cell 3 5,alignx center,growx 0");
+
+            NumberOfDownloads.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+
+            PapersView.add(NumberOfDownloads, "cell 3 5,alignx center,growx 0");
 
             //---- AddButton ----
             AddButton.setText("Add My Reading List");
@@ -485,97 +725,11 @@ public class MainApp extends JPanel {
             AddButton.setBackground(new Color(0x00cccc));
             AddButton.setForeground(Color.white);
             AddButton.addActionListener(e -> {
-            button1(e);
-            Add(e);
             AddPaperToReadingList(e);
         });
-            PapersView.add(AddButton, "cell 4 5,alignx center,growx 0");
-        }
+            PapersView.add(AddButton, "cell 3 5,alignx center,growx 0");
 
-        //======== ReadingListView ========
-        {
-            ReadingListView.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
-            EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER,javax.swing
-            .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
-            java.awt.Color.red),ReadingListView. getBorder()));ReadingListView. addPropertyChangeListener(new java.beans.PropertyChangeListener()
-            {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName()))
-            throw new RuntimeException();}});
-            ReadingListView.setLayout(new MigLayout(
-                "fill,hidemode 3,align center center",
-                // columns
-                "[118,fill]" +
-                "[205,fill]" +
-                "[103,fill]" +
-                "[20,fill]" +
-                "[164,fill]" +
-                "[fill]",
-                // rows
-                "[]" +
-                "[]" +
-                "[]" +
-                "[]" +
-                "[]" +
-                "[]" +
-                "[]" +
-                "[]"));
 
-            //---- ReadingListViewTitle ----
-            ReadingListViewTitle.setText("My Reading Lists");
-            ReadingListViewTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
-            ReadingListView.add(ReadingListViewTitle, "cell 0 0 4 1");
-
-            //---- ReturnHomePageButton ----
-            ReturnHomePageButton.setText("Return Homepage");
-            ReturnHomePageButton.setIcon(UIManager.getIcon("FileChooser.homeFolderIcon"));
-            ReadingListView.add(ReturnHomePageButton, "cell 5 0,align right top,grow 0 0");
-
-            //======== scrollPane5 ========
-            {
-                scrollPane5.setViewportView(MyReadingList);
-            }
-            ReadingListView.add(scrollPane5, "cell 0 1 3 5,growy");
-
-            //---- label10 ----
-            label10.setText("Papers");
-            label10.setFont(new Font("Segoe UI", Font.PLAIN, 22));
-            ReadingListView.add(label10, "cell 4 1 2 1");
-
-            //======== scrollPane6 ========
-            {
-                scrollPane6.setViewportView(ReadingListPapers);
-            }
-            ReadingListView.add(scrollPane6, "cell 4 2 2 4,growy");
-
-            //---- label9 ----
-            label9.setText("Reading List Name");
-            ReadingListView.add(label9, "cell 0 6");
-
-            //---- CreateInputField ----
-            CreateInputField.addCaretListener(e -> CreateInputFieldCaretUpdate(e));
-            ReadingListView.add(CreateInputField, "cell 1 6 2 1");
-
-            //---- CreateReadingListButton ----
-            CreateReadingListButton.setText("Create Reading List");
-            CreateReadingListButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
-            CreateReadingListButton.setBackground(new Color(0x00cccc));
-            CreateReadingListButton.setForeground(Color.white);
-            CreateReadingListButton.setIcon(UIManager.getIcon("FileChooser.newFolderIcon"));
-            CreateReadingListButton.setEnabled(false);
-            CreateReadingListButton.addActionListener(e -> {
-            button1(e);
-            CreateReadingList(e);
-        });
-            ReadingListView.add(CreateReadingListButton, "cell 0 7 3 1,alignx center,growx 0");
-
-            //---- RemoveSelectedPaperButton ----
-            RemoveSelectedPaperButton.setText("Remove Selected Paper");
-            RemoveSelectedPaperButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
-            RemoveSelectedPaperButton.setBackground(new Color(0x00cccc));
-            RemoveSelectedPaperButton.setForeground(Color.white);
-            RemoveSelectedPaperButton.setIcon(UIManager.getIcon("InternalFrame.closeIcon"));
-            RemoveSelectedPaperButton.setEnabled(false);
-            RemoveSelectedPaperButton.addActionListener(e -> button1(e));
-            ReadingListView.add(RemoveSelectedPaperButton, "cell 4 7 2 1,alignx center,growx 0");
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -592,27 +746,47 @@ public class MainApp extends JPanel {
     private JPanel LoginView;
     private JLabel LoginTitle;
     private JLabel UsernameTag;
+    private JLabel NumberOfDownloads;
     private JTextField UsernameField;
     private JLabel PasswordTag;
     private JPasswordField PasswordField;
     private JPopupMenu.Separator Seperator;
     private JButton LoginButton;
-    private JPanel ControlPanelView2;
+    private JPanel ResearchersView;
     private JLabel label4;
-    private JButton button2;
-    private JLabel label5;
+    private JButton ReturnResearchers;
+    private JLabel OtherResearcherNameTitle;
     private JScrollPane scrollPane2;
-    private JList list2;
-    private JButton button12;
+    private JList<Researcher> ResearchersList;
+    private JButton FollowButton;
     private JLabel label6;
     private JLabel label7;
     private JScrollPane scrollPane3;
-    private JList list3;
+    private JList<ReadingList> OtherResearcherReadingList;
     private JScrollPane scrollPane4;
-    private JList list4;
+    private JList<Object> OtherResearcherPapersList;
+    private JPanel ProfileView;
+    private JLabel ReadingListViewTitle4;
+    private JButton ReturnProfile;
+    private JLabel ReadingListViewTitle2;
+    private JLabel ReadingListViewTitle3;
+    private JScrollPane scrollPane7;
+    private JList<Object> MyFollowersList;
+    private JScrollPane scrollPane8;
+    private JList<Object> MyFollowingList;
+    private JLabel ReadingListViewTitle;
+    private JScrollPane scrollPane5;
+    private JList<ReadingList> MyReadingList;
+    private JLabel label10;
+    private JScrollPane scrollPane6;
+    private JList<String> ReadingListPapers;
+    private JLabel label9;
+    private JTextField CreateInputField;
+    private JButton CreateReadingListButton;
+    private JButton RemoveSelectedPaperButton;
     private JPanel PapersView;
     private JLabel Title;
-    private JButton ReturnButton;
+    private JButton ReturnPapers;
     private JLabel PaperTitle;
     private JScrollPane scrollPane1;
     private JList<Paper> PaperList;
@@ -620,17 +794,5 @@ public class MainApp extends JPanel {
     private JComboBox<ReadingList> ReadingListDropdown;
     private JButton DownloadButton;
     private JButton AddButton;
-    private JPanel ReadingListView;
-    private JLabel ReadingListViewTitle;
-    private JButton ReturnHomePageButton;
-    private JScrollPane scrollPane5;
-    private JList<ReadingList> MyReadingList;
-    private JLabel label10;
-    private JScrollPane scrollPane6;
-    private JList ReadingListPapers;
-    private JLabel label9;
-    private JTextField CreateInputField;
-    private JButton CreateReadingListButton;
-    private JButton RemoveSelectedPaperButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

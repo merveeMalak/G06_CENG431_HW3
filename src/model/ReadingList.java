@@ -4,10 +4,6 @@ package model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-
-import view.ICustomObserver;
-import view.ICustomSubject;
-
 import java.util.List;
 
 public class ReadingList {
@@ -23,34 +19,29 @@ public class ReadingList {
     @JsonProperty("number_of_papers")
     private int numberOfPapers;
 
-    private List<Paper> papers;
-
     public ReadingList() {
-        this.papers = new ArrayList<>();
     }
 
-    public ReadingList(int id, String creatorResearcherName, String readingListName, int numberOfPapers, List<String> nameOfPapers) {
-        this.id = id;
-        this.creatorResearcherName = creatorResearcherName;
-        this.readingListName = readingListName;
-        this.numberOfPapers = numberOfPapers;
-        this.nameOfPapers = new ArrayList<>(nameOfPapers);
-    }
-
-    public ReadingList(int id, String creatorResearcherName, String readingListName, List<Paper> papers) {
-        this.id = id;
-        this.creatorResearcherName = creatorResearcherName;
-        this.readingListName = readingListName;
-        this.papers = papers;
-    }
+//    public ReadingList(int id, String creatorResearcherName, String readingListName, int numberOfPapers, List<String> nameOfPapers) {
+//        this.id = id;
+//        this.creatorResearcherName = creatorResearcherName;
+//        this.readingListName = readingListName;
+//        this.numberOfPapers = numberOfPapers;
+//        this.nameOfPapers = new ArrayList<>(nameOfPapers);
+//    }
+//
+//    public ReadingList(int id, String creatorResearcherName, String readingListName, List<Paper> papers) {
+//        this.id = id;
+//        this.creatorResearcherName = creatorResearcherName;
+//        this.readingListName = readingListName;
+//    }
 
     public ReadingList(int id, String creatorResearcherName, String readingListName) {
         this.id = id;
         this.creatorResearcherName = creatorResearcherName;
         this.readingListName = readingListName;
-        this.papers = new ArrayList<>();
         this.numberOfPapers = 0;
-        this.nameOfPapers = new ArrayList<>();
+        this.nameOfPapers = new ArrayList<String>();
     }
 
     public int getId() {
@@ -66,16 +57,31 @@ public class ReadingList {
     }
 
     public int getNumberOfPapers() {
-        return this.papers.size();
+        return numberOfPapers;
     }
 
     public List<String> getNameOfPapers() {
-        return this.papers.stream().map(Paper::getTitle).toList();
+        return this.nameOfPapers;
     }
 
-    public void addPaper(Paper paper) {
-        this.numberOfPapers += 1;
-        this.nameOfPapers.add(paper.getTitle());
+    public boolean addPaper(Paper paper) {
+        if (!this.nameOfPapers.contains(paper.getTitle())) {
+            numberOfPapers += 1;
+            nameOfPapers.add(paper.getTitle());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removePaper(String paperName) {
+        if (this.nameOfPapers.contains(paperName)) {
+            this.nameOfPapers.remove(paperName);
+            this.numberOfPapers -= 1;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

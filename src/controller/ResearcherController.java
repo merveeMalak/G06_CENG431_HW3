@@ -7,6 +7,7 @@ import view.ICustomSubject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ResearcherController implements ICustomSubject {
 
@@ -24,6 +25,7 @@ public class ResearcherController implements ICustomSubject {
         this.xmlFileManagement = new XmlFileManagement();
         this.researchers = xmlFileManagement.getResearchers();
         this.observers = new ArrayList<>();
+        this.attach(xmlFileManagement);
     }
 
     public ResearcherController() {
@@ -57,6 +59,22 @@ public class ResearcherController implements ICustomSubject {
         this.password = password;
     }
 
+    public boolean getIsFollowThisResearcher(Researcher checkResearcher) {
+        return checkResearcher.getFollowerResearchers().contains(currentResearcher);
+    }
+
+    public List<Researcher> getOtherResearchers(String name) {
+        return this.researchers.stream().filter(x -> !Objects.equals(x.getName(), name)).toList();
+    }
+
+    public void setFollowResearcher(Researcher researcher, Researcher followingResearcher) {
+        this.xmlFileManagement.setFollowResearcher(researcher, followingResearcher);
+    }
+
+    public void setUnfollowResearcher(Researcher researcher, Researcher followingResearcher) {
+        this.xmlFileManagement.setUnfollowResearcher(researcher, followingResearcher);
+    }
+
     @Override
     public void attach(ICustomObserver observer) {
         observers.add(observer);
@@ -76,5 +94,17 @@ public class ResearcherController implements ICustomSubject {
 
     public String getResearcherName() {
         return currentResearcher.getName();
+    }
+
+    public Researcher getCurrentResearcher() {
+        return currentResearcher;
+    }
+
+    public List<Researcher> getFollowers() {
+        return currentResearcher.getFollowerResearchers();
+    }
+
+    public List<Researcher> getFollowings() {
+        return currentResearcher.getFollowingResearchers();
     }
 }

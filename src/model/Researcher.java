@@ -15,8 +15,6 @@ public class Researcher {
     private List<ReadingList> readingLists;
 
 
-
-
     public Researcher(String name, String password, List<Researcher> followingResearchers, List<Researcher> followerResearchers) {
         this.name = name;
         this.password = password;
@@ -70,7 +68,8 @@ public class Researcher {
         followerResearchers.remove(followerResearcher);
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
