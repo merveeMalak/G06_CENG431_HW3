@@ -19,22 +19,7 @@ public class ReadingList {
     @JsonProperty("number_of_papers")
     private int numberOfPapers;
 
-    public ReadingList() {
-    }
-
-//    public ReadingList(int id, String creatorResearcherName, String readingListName, int numberOfPapers, List<String> nameOfPapers) {
-//        this.id = id;
-//        this.creatorResearcherName = creatorResearcherName;
-//        this.readingListName = readingListName;
-//        this.numberOfPapers = numberOfPapers;
-//        this.nameOfPapers = new ArrayList<>(nameOfPapers);
-//    }
-//
-//    public ReadingList(int id, String creatorResearcherName, String readingListName, List<Paper> papers) {
-//        this.id = id;
-//        this.creatorResearcherName = creatorResearcherName;
-//        this.readingListName = readingListName;
-//    }
+    public ReadingList() {}
 
     public ReadingList(int id, String creatorResearcherName, String readingListName) {
         this.id = id;

@@ -45,7 +45,6 @@ public class JsonFileManagement implements ICustomObserver {
             }
         }
         this.readingLists = newReadingList;
-//        this.readingLists = this.readingLists.stream().map(x -> x.getId() == changedReadingList.getId() ? changedReadingList : x).toList();
     }
 
     public List<ReadingList> getReadingListsByName(String researcherName) {

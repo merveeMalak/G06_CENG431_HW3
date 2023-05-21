@@ -48,33 +48,6 @@ public class BibFileIO implements IReadFileIO<List<String[]>> {
             }
         }
         return stringList;
-//        List<String[]> stringList = new ArrayList<>();
-//        for (String bibFilePath : filePaths) {
-//            FileReader reader = null;
-//            try {
-//                reader = new FileReader("Homework3/" + bibFilePath);
-//            } catch (IOException e) {
-//                System.out.println("IOException");
-//            }
-//            BibTeXParser parser = null;
-//            try {
-//                parser = new BibTeXParser();
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
-//            BibTeXDatabase database = null;
-//            try {
-//
-//                database = parser.parse(reader);
-//                Collection<BibTeXEntry> entries = database.getEntries().values();
-//                for (org.jbibtex.BibTeXEntry entry : entries) {
-//                    stringList.add(entryToPaper(entry));
-//                }
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        return stringList;
     }
 
     private String[] entryToPaper(BibTeXEntry entry) {

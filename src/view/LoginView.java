@@ -1,69 +1,101 @@
 package view;
 
 import controller.ResearcherController;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
 import java.awt.*;
+import java.util.Objects;
 
-public class LoginView extends JPanel implements ICustomObserver {
-    private JLabel jcomp1;
+public class LoginView extends JPanel {
+    private JLabel loginTitle;
+    private JLabel usernameTag;
     private JTextField usernameField;
+    private JLabel passwordTag;
     private JPasswordField passwordField;
+    private JPopupMenu.Separator seperator;
     private JButton loginButton;
-    private JLabel jcomp5;
-    private JLabel jcomp6;
     private ResearcherController researcherController;
     private JFrame frame;
+    private JPanel homePageView;
 
-    public LoginView(JFrame frame, ResearcherController researcherController) {
+    public LoginView(JFrame frame, ResearcherController researcherController, JPanel homePageView) {
         //construct components
+        this.loginTitle = new JLabel();
+        this.usernameTag = new JLabel();
+        this.usernameField = new JTextField();
+        this.passwordTag = new JLabel();
+        this.passwordField = new JPasswordField();
+        this.seperator = new JPopupMenu.Separator();
+        this.loginButton = new JButton();
         this.researcherController = researcherController;
         this.frame = frame;
-        jcomp1 = new JLabel("Login");
-        usernameField = new JTextField(5);
-        passwordField = new JPasswordField(5);
-        loginButton = new JButton("Login");
-        LoginActionListener actionListener = new LoginActionListener(frame, usernameField, passwordField, researcherController);
+        LoginActionListener actionListener = new LoginActionListener(frame, usernameField, passwordField, researcherController, homePageView);
+
+        setLayout(new MigLayout(
+                "insets 50,hidemode 3,align center center",
+                // columns
+                "[fill]" +
+                        "[left]" +
+                        "[fill]",
+                // rows
+                "[]" +
+                        "[]" +
+                        "[]" +
+                        "[]" +
+                        "[15]" +
+                        "[]" +
+                        "[]" +
+                        "[]"));
+
+        //---- LoginTitle ----
+        loginTitle.setText("Welcome to OpenResearcher");
+        loginTitle.setForeground(new Color(0x00cccc));
+        loginTitle.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        add(loginTitle, "cell 1 0,align center top,grow 0 0");
+
+        //---- UsernameTag ----
+        usernameTag.setText("Username");
+        usernameTag.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        usernameTag.setLabelFor(usernameField);
+        add(usernameTag, "cell 0 2,alignx right,growx 0");
+
+        //---- UsernameField ----
+        usernameField.addCaretListener(e -> usernameFieldCaretUpdate(e));
+        add(usernameField, "pad 0,cell 1 2,align left center,grow 0 0,wmin 450");
+
+        //---- PasswordTag ----
+        passwordTag.setText("Password");
+        passwordTag.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        passwordTag.setLabelFor(passwordField);
+        add(passwordTag, "cell 0 3,alignx right,growx 0");
+
+        //---- PasswordField ----
+        passwordField.addCaretListener(e -> passwordFieldCaretUpdate(e));
+        add(passwordField, "cell 1 3,alignx left,growx 0,wmin 450");
+        add(seperator, "cell 0 4 2 1");
+
+        //---- LoginButton ----
+        loginButton.setText("LOG IN");
+        loginButton.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        loginButton.setBackground(new Color(0x00cccc));
+        loginButton.setForeground(Color.white);
+        loginButton.setEnabled(false);
+        add(loginButton, "cell 1 5,growx");
         loginButton.addActionListener(actionListener);
-        jcomp5 = new JLabel("Name");
-        jcomp6 = new JLabel("Password");
-        //adjust size and set layout
-        setPreferredSize(new Dimension(771, 509));
-        setLayout(null);
-        //add components
-        add(jcomp1);
-        add(usernameField);
-        add(passwordField);
-        add(loginButton);
-        add(jcomp5);
-        add(jcomp6);
-        //set component bounds (only needed by Absolute Positioning)
-        jcomp1.setBounds(360, 45, 50, 25);
-        usernameField.setBounds(325, 85, 100, 25);
-        passwordField.setBounds(325, 110, 100, 25);
-        loginButton.setBounds(325, 160, 100, 25);
-        jcomp5.setBounds(285, 85, 35, 25);
-        jcomp6.setBounds(260, 110, 65, 25);
+    }
+    private void usernameFieldCaretUpdate(CaretEvent e) {
+        char[] password = passwordField.getPassword();
+        String username = usernameField.getText();
+        loginButton.setEnabled(password.length != 0 && !Objects.equals(username, ""));
+    }
+
+    private void passwordFieldCaretUpdate(CaretEvent e) {
+        char[] password = passwordField.getPassword();
+        String username = usernameField.getText();
+        loginButton.setEnabled(password.length != 0 && !Objects.equals(username, ""));
     }
 
 
-    @Override
-    public void update(ICustomSubject subject) {
-        if (researcherController.getLoggedIn()) {
-            switchDashboardView();
-        }
-    }
-
-    private void switchDashboardView() {
-        // Code to switch to the main page
-//        frame.dispose(); // Close the login window
-//        JFrame mainFrame = new JFrame("Main Page");
-//        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        mainFrame.setSize(400, 300);
-        frame.getContentPane().remove(0);
-        frame.getContentPane().add(new DashboardView(frame, researcherController));
-        frame.pack();
-        frame.setVisible(true);
-        // Add components or perform any other actions for the main page
-    }
 }
